@@ -3,11 +3,10 @@
 import React from 'react'
 import Image from 'next/image';
 import logo from '@/assets/logo.svg';
-import lightMode from '@/assets/light.svg';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Search } from 'lucide-react';
 import { useLang } from '@/lang/useLang';
+import Display from '@/app/components/Display';
 
 const Header = () => {
     const { t } = useLang();
@@ -52,9 +51,7 @@ const Header = () => {
                     />
                     <Search className="absolute left-3 top-2 h-4 w-4 text-gray-400" />
                 </div>
-                <button className="rounded-full bg-[#1e1e1e] text-white cursor-pointer">
-                    <Image src={lightMode} alt="light" height={24} />
-                </button>
+                <Display />
                 <button className="bg-linear-tm font-medium px-6 py-[6px] rounded-full bg-linear-to-t from-sky-500 to-indigo-500">{t('connect')}</button>
             </div>
         </div>

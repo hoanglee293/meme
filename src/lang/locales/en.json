@@ -5,5 +5,11 @@
   "createCoin": "Create Coin",
   "masterTrade": "Master Trade",
   "wallet": "Wallet",
-  "searchPlaceholder": "Token Name/ Address"
+  "searchPlaceholder": "Token Name/ Address",
+  "languages": {
+    "korea": "Korea",
+    "english": "English",
+    "vietnamese": "Vietnamese",
+    "japan": "Japan"
+  }
 }

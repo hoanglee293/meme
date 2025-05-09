@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
+  images: {
+    domains: [
+        'coin-images.coingecko.com',
+    ],
+    unoptimized: true,
+},
 };
 
 export default nextConfig;

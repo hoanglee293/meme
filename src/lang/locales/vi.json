@@ -5,5 +5,11 @@
   "createCoin": "Tạo Coin",
   "masterTrade": "Giao dịch chuyên nghiệp",
   "wallet": "Ví",
-  "searchPlaceholder": "Tên Token/ Địa chỉ"
+  "searchPlaceholder": "Tên Token/ Địa chỉ",
+  "languages": {
+    "korea": "Hàn Quốc",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "japan": "Nhật Bản"
+  }
 }

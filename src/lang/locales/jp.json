@@ -5,5 +5,11 @@
   "createCoin": "コイン作成",
   "masterTrade": "マスタートレード",
   "wallet": "ウォレット",
-  "searchPlaceholder": "トークン名/アドレス"
+  "searchPlaceholder": "トークン名/アドレス",
+  "languages": {
+    "korea": "韓国語",
+    "english": "英語",
+    "vietnamese": "ベトナム語",
+    "japan": "日本語"
+  }
 }
