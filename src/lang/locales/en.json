@@ -1,0 +1,9 @@
+{
+  "connect": "Connect",
+  "overview": "Overview",
+  "trade": "Trade",
+  "createCoin": "Create Coin",
+  "masterTrade": "Master Trade",
+  "wallet": "Wallet",
+  "searchPlaceholder": "Token Name/ Address"
+}

@@ -1,0 +1,9 @@
+{
+  "connect": "연결",
+  "overview": "개요",
+  "trade": "거래",
+  "createCoin": "코인 생성",
+  "masterTrade": "마스터 거래",
+  "wallet": "지갑",
+  "searchPlaceholder": "토큰 이름/주소"
+}
