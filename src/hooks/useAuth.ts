@@ -1,33 +1,38 @@
-'use client';
+import { create } from "zustand";
+import { jwtDecode } from "jwt-decode";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+const useAuthStore = create((set: any) => {
+  const savedToken =
+    typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+  const payloadToken = savedToken ? jwtDecode(savedToken) : null;
 
-export function useAuth() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  return {
+    token: savedToken,
+    payloadToken,
+    isAuthenticated: !!savedToken,
 
-  const login = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      // Replace with real API call
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+    login: (token: string) => {
+      const decoded = jwtDecode(token);
+      localStorage.setItem("auth_token", token);
+      set({ token, payloadToken: decoded, isAuthenticated: true });
+    },
 
-      if (!res.ok) throw new Error('Login failed');
-      const data = await res.json();
+    logout: () => {
+      localStorage.removeItem("auth_token");
+      set({ token: null, payloadToken: null, isAuthenticated: false });
+    },
 
-      // You can save token to cookies/localStorage here
-      router.push('/dashboard');
-    } catch (err) {
-      alert((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
+    updateToken: (newToken: string) => {
+      const decoded = jwtDecode(newToken);
+      localStorage.setItem("auth_token", newToken);
+      set({ token: newToken, payloadToken: decoded });
+    },
   };
+});
 
-  return { login, loading };
-}
+export const useAuth = () => {
+  const { token, payloadToken, isAuthenticated, login, logout, updateToken } =
+    useAuthStore();
+
+  return { token, payloadToken, isAuthenticated, login, logout, updateToken };
+};
