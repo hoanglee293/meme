@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image';
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/svgs/logo.svg';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { useLang } from '@/lang/useLang';
@@ -52,7 +52,7 @@ const Header = () => {
                     <Search className="absolute left-3 top-2 h-4 w-4 text-gray-400" />
                 </div>
                 <Display />
-                <button className="bg-linear-tm font-medium px-6 py-[6px] rounded-full bg-linear-to-t from-sky-500 to-indigo-500">{t('connect')}</button>
+                <button className="linear-gradient-connect font-medium px-6 py-[6px] rounded-full ">{t('connect')}</button>
             </div>
         </div>
     )

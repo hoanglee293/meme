@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import "./globals.css";
+import "@/styles/globals.css";
 import Header from "@/app/components/Header";
-import '@/lib/fontawesome'
+import '@/libs/fontawesome'
 import { LangProvider } from "@/lang/LangProvider";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

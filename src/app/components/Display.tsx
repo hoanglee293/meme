@@ -3,8 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
-import lightMode from '@/assets/light.svg';
-import { Select } from '@mui/material';
+import lightMode from '@/assets/svgs/light.svg';
 import { useLang } from '@/lang/useLang';
 import { LangToggle } from './LanguageSelect';
 

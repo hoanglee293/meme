@@ -11,6 +11,11 @@
   font-display: swap;
 }
 
+* {
+
+  box-sizing: border-box;
+}
+
 /* Add more weights if needed */
 
 @theme inline {
@@ -57,12 +62,86 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
+.text-gradient {
+  background: linear-gradient(90deg, var(--Colors-Primary-300, #15DFFD) 3.63%, var(--Colors-Secondary-400, #761BB3) 100.06%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .hover-gradient:hover {
   background: linear-gradient(90deg, var(--Colors-Primary-300, #15DFFD) 3.63%, var(--Colors-Secondary-400, #761BB3) 100.06%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.linear-gradient-connect {
+  border-radius: 24px;
+  background: linear-gradient(0deg, #112D60 0%, #83E 100%);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+
+.container-body {
+  max-width: 1920px;
+  width: 100%;
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-body::before {
+  content: '';
+  position: absolute;
+  top: 250px;
+  left: -100px;
+  width: 476px;
+  height: 139px;
+  transform: rotate(-33.023deg);
+  flex-shrink: 0;
+  border-radius: 476px;
+  background: rgba(99, 249, 254, 0.30);
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.container-body::after {
+  content: '';
+  position: absolute;
+  top: 168px;
+  right: -100px;
+  width: 476px;
+  height: 139px;
+  flex-shrink: 0;
+  border-radius: 476px;
+  background: rgba(151, 43, 223, 0.52);
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.box-gradient {
+  border-radius: 12px;
+  border: 1px solid #5558FF;
+  background: linear-gradient(93deg, rgba(17, 45, 96, 0.50) 2.14%, rgba(136, 51, 238, 0.50) 98.03%);
+  backdrop-filter: blur(5px);
+}
+
+.box-gradient:hover {
+  background: linear-gradient(93deg, rgba(136, 51, 238, 0.50) 2.14%, rgba(17, 45, 96, 0.50) 98.03%);
+}
+
+.check {
+  background: linear-gradient(90deg, var(--Colors-Primary-300, #15DFFD) 1.85%, var(--Colors-Secondary-200, #BA72EA) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 
 :root {
   --radius: 0.625rem;
