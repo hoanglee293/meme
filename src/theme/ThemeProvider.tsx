@@ -1,14 +1,18 @@
-'use client';
+"use client"
 
-import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { theme } from './theme';
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { type ThemeProviderProps } from "next-themes/dist/types"
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
-    <MUIThemeProvider theme={theme}>
-      <CssBaseline />
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem={true}
+      {...props}
+    >
       {children}
-    </MUIThemeProvider>
-  );
+    </NextThemesProvider>
+  )
 } 
