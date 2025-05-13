@@ -170,7 +170,7 @@ export default function Trading() {
   };
 
   return (
-    <div>
+    <div className="z-1">
       {showToast && (
         <ToastNotification
           message={toastMessage}

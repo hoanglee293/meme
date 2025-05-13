@@ -82,7 +82,7 @@ const OverView = () => {
                     </div>
                     <div className='flex flex-col items-center gap-2'>
                         <Image src={monthTradingVolume} alt='hour-trading-volume' />
-                        <span className='text-neutral-100 text-sm font-semibold capitalize'>Total 24h trading volume</span>
+                        <span className='text-neutral-100 text-sm font-semibold capitalize'>Total 30d trading volume</span>
                         <span className='text-neutral-100 text-[22px] font-bold leading-[33px]'>$1.30M</span>
                     </div>
                 </div>

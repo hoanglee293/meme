@@ -74,7 +74,7 @@ const Header = () => {
     const listSidebar = [
         {
             name: t('overview'),
-            href: '/overview'
+            href: '/dashboard'
         },
         {
             name: t('trade'),
@@ -93,7 +93,7 @@ const Header = () => {
             href: '/wallet'
         },
     ]
-
+    console.log("/" + pathname);
     return (
         <header className="sticky top-0 z-50 w-full border-b border-[hsl(var(--header-border))] bg-[hsl(var(--header-bg))]">
             <div className='flex items-center justify-between px-10 py-[14px]'>
@@ -104,7 +104,7 @@ const Header = () => {
                             <Link
                                 href={item.href}
                                 key={index}
-                                className={`hover-gradient text-muted-foreground transition-colors ${pathname === item.href ? 'text-foreground' : ''}`}
+                                className={`hover-gradient text-muted-foreground transition-colors ${"/" + pathname === item.href ? 'text-foreground' : ''}`}
                             >
                                 {item.name}
                             </Link>
@@ -112,6 +112,11 @@ const Header = () => {
                     </nav>
                 </div>
                 <div className='flex items-center gap-6'>
+                    {isAuthenticated && walletInfor && (
+                        <button className='linear-gradient-connect text-sm text-neutral-100 font-medium px-6 py-[6px] rounded-full'>
+                            {walletInfor.solana_balance} SOL
+                        </button>
+                    )}
                     <div className="relative">
                         <input
                             type="text"

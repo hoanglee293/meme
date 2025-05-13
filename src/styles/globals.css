@@ -132,7 +132,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, var(--Colors-Primary-300, #15DFFD) 3.63%, var(--Colors-Secondary-400, #761BB3) 100.06%);
+  background: linear-gradient(90deg, #15DFFD 3.63%, #761BB3 100.06%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -143,6 +143,7 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  
 }
 
 .linear-gradient-connect {
