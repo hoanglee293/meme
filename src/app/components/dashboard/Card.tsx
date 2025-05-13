@@ -95,7 +95,7 @@ export default function TokenCard({
     <>
       {showToast && (
         <ToastNotification
-          message={t('createCoin.copySuccess')}
+          message={"Đã sao chép địa chỉ ví vào clipboard"}
           onClose={() => setShowToast(false)}
         />
       )}
