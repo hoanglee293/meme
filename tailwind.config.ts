@@ -19,6 +19,10 @@ const config: Config = {
     },
     extend: {
       colors: {
+        // Custom Colors
+        'linear': {
+          '200': '#5558FF',
+        },
         // HSL Variables
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -64,11 +68,13 @@ const config: Config = {
           '100': '#eeeeee',
           '200': '#D7D7D7',
           '300': '#C0C0C0',
-          '900': '#353535',
+          '900': '#5558FF',
+          '1000': '#1E1E1E',
         },
         black: {
           '100': '#0F0F0F',
-        }
+        },
+        
       },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(0deg, #112D60 0%, #83E 100%)',
@@ -77,6 +83,7 @@ const config: Config = {
       backgroundColor: {
         'linear-tm': '#112D60',
         'linear-100': '#0F0F0F',
+        'linear-200': '#5558FF',
       },
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
@@ -91,6 +98,9 @@ const config: Config = {
         '72': '18rem',
         '84': '21rem',
         '96': '24rem',
+      },
+      borderColor: {
+        'linear-200': '#5558FF',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -113,6 +123,9 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      boxShadow: {
+        'custom': '0px 0px 4px 0px rgba(232, 232, 232, 0.50)',
+      },
     },
   },
   plugins: [
@@ -130,7 +143,13 @@ const config: Config = {
         },
         '.linear-gradient-connect': {
           '@apply bg-gradient-primary rounded-3xl text-sm font-medium': {},
-        }
+        },
+        '.text-linear-200': {
+          color: '#5558FF',
+        },
+        '.shadow-custom': {
+          boxShadow: '0px 0px 4px 0px rgba(232, 232, 232, 0.50)',
+        },
       })
     }),
   ],

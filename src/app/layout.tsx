@@ -6,6 +6,7 @@ import '@/libs/fontawesome'
 import { LangProvider } from "@/lang/LangProvider";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import VideoBackground from "./components/VideoBackground";
 
 export default function RootLayout({
   children,
@@ -28,6 +29,7 @@ export default function RootLayout({
               className={`antialiased`}
             >
               <Header />
+              <VideoBackground />
               <main className='grow'>{children}</main>
             </body>
           </ThemeProvider>

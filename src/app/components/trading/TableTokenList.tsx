@@ -84,7 +84,7 @@ export function TableTokenList({
     <Card className="border-none dark:shadow-blue-900/5">
       <CardContent className="p-0">
         <div className="overflow-hidden rounded-lg border">
-          <Table>
+          <Table className="">
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead className={`pl-[50px] ${textTitle}`}>{t("trading.token")}</TableHead>
@@ -175,7 +175,7 @@ export function TableTokenList({
                 tokens.map((token: any, index: any) => (
                   <TableRow
                     key={index}
-                    className="hover:bg-neutral-500 cursor-pointer transition-all duration-200 pl-[14px] group"
+                    className="hover:bg-neutral-500 delay-[0.02s] ease-linear cursor-pointer transition-all duration-300 pl-[14px] group"
                     onClick={() =>
                       router.push(`trading/token?address=${token.address}`)
                     }

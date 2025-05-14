@@ -19,7 +19,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getInforWallet, getMyWallets, useWallet } from '@/services/api/TelegramWalletService';
 import { Button } from '@/ui/button';
-import { truncateString } from '@/utils/format';
+import { formatNumberWithSuffix3, truncateString } from '@/utils/format';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/ui/dialog';
 import { Badge } from '@/ui/badge';
 import { CheckCircle } from 'lucide-react';
@@ -78,7 +78,7 @@ const Header = () => {
         },
         {
             name: t('trade'),
-            href: '/trade'
+            href: '/trading'
         },
         {
             name: t('createCoin'),
@@ -93,9 +93,9 @@ const Header = () => {
             href: '/wallet'
         },
     ]
-    console.log("/" + pathname);
+
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-[hsl(var(--header-border))] bg-[hsl(var(--header-bg))]">
+        <header className="sticky top-0 z-50 w-full  bg-[hsl(var(--header-bg))]">
             <div className='flex items-center justify-between px-10 py-[14px]'>
                 <div className='flex items-center gap-15'>
                     <Link href="/"><Image src={logo} alt="logo" height={32} /></Link>
@@ -104,7 +104,7 @@ const Header = () => {
                             <Link
                                 href={item.href}
                                 key={index}
-                                className={`hover-gradient text-muted-foreground transition-colors ${"/" + pathname === item.href ? 'text-foreground' : ''}`}
+                                className={`hover-gradient hover:underline text-muted-foreground transition-colors ${"/" + pathname === item.href ? 'text-foreground' : ''}`}
                             >
                                 {item.name}
                             </Link>
@@ -113,8 +113,8 @@ const Header = () => {
                 </div>
                 <div className='flex items-center gap-6'>
                     {isAuthenticated && walletInfor && (
-                        <button className='linear-gradient-connect text-sm text-neutral-100 font-medium px-6 py-[6px] rounded-full'>
-                            {walletInfor.solana_balance} SOL
+                        <button className='linear-gradient-connect text-sm text-neutral-100 font-medium px-4 py-[6px] rounded-full'>
+                            {walletInfor.solana_balance} SOL &ensp; {'$' + formatNumberWithSuffix3(walletInfor.solana_balance)}
                         </button>
                     )}
                     <div className="relative">
@@ -166,7 +166,12 @@ const Header = () => {
                         <DialogContent className="sm:max-w-[425px] bg-card">
                             <DialogHeader>
                                 <DialogTitle className="text-base font-bold">
-                                    Select Wallet
+                                    <input
+                                        type="text"
+                                        placeholder={'Wallet Name / Address'}
+                                        className="rounded-full py-2 pl-10 pr-4 w-64 text-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-[hsl(var(--ring))] max-h-[30px] border-1 border-solid border-linear-tm placeholder:text-xs placeholder:font-normal"
+                                    />
+                                    <Search className=" absolute left-6 top-4.5 h-4 w-4 text-muted-foreground " />
                                 </DialogTitle>
                             </DialogHeader>
                             <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-600">

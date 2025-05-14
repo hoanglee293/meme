@@ -82,6 +82,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --linear-200: #5558ff;
 }
 
 /* Add more weights if needed */
@@ -131,6 +132,7 @@ body {
   overflow-x: hidden;
 }
 
+/* custom hard code*/
 .text-gradient {
   background: linear-gradient(90deg, #15DFFD 3.63%, #761BB3 100.06%);
   background-clip: text;
@@ -147,14 +149,13 @@ body {
 }
 
 .linear-gradient-connect {
-  background: linear-gradient(0deg, #112D60 0%, #83E 100%);
+  background: var(--Linrear-Tm-01, linear-gradient(93deg, rgba(17, 45, 96, 0.50) 2.14%, rgba(136, 51, 238, 0.50) 98.03%));
 }
 
 .container-body {
   max-width: 1920px;
   width: 100%;
-  padding-right: 16px;
-  padding-left: 16px;
+  
   margin-right: auto;
   margin-left: auto;
 }
@@ -203,6 +204,20 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.dark .border-linear-200 {
+  border: 1px solid var(--linear-200);
+  box-shadow: 0px 0px 4px 0px rgba(232, 232, 232, 0.50);
+  backdrop-filter: blur(5px);
+}
+.dark .bg-neutral-1000 {
+  background-color: rgba(30, 30, 30, 0.80);
+  z-index: 1;
+}
+.box-shadow-info {
+  box-shadow: 0px 0px 4px 0px rgba(232, 232, 232, 0.50);
+  background: rgba(30, 30, 30, 0.80);
 }
 
 @layer base {
@@ -312,9 +327,7 @@ body {
   @apply absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[hsl(var(--gradient-start))] to-[hsl(var(--gradient-end))] transition-all duration-300;
 }
 
-.hover-gradient:hover::after {
-  @apply w-full;
-}
+
 
 /* .linear-gradient-connect {
   @apply bg-gradient-to-r from-[hsl(var(--button-gradient-start))] to-[hsl(var(--button-gradient-end))] text-[hsl(var(--button-text))];
