@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import OverView from './over-view'
 import Check from './check';

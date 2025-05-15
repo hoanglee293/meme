@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Table,
   TableBody,
@@ -175,7 +177,7 @@ export function TableTokenList({
                 tokens.map((token: any, index: any) => (
                   <TableRow
                     key={index}
-                    className="hover:bg-neutral-500 delay-[0.02s] ease-linear cursor-pointer transition-all duration-300 pl-[14px] group"
+                    className="hover:bg-neutral-500 ease-linear cursor-pointer transition-all duration-300 pl-[14px] group"
                     onClick={() =>
                       router.push(`trading/token?address=${token.address}`)
                     }

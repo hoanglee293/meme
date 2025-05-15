@@ -74,7 +74,7 @@ const OverView = () => {
                     <Image src={dolaLogo} alt='dola-logo' className='xl:mr-12'/>
 
                 </div>
-                <div className='w-full rounded-lg box-gradient flex justify-between items-center px-15 z-1'>
+                <div className='w-full rounded-lg box-gradient flex justify-between items-center px-[60px] z-1'>
                     <div className='flex flex-col items-center gap-2'>
                         <Image src={hourTradingVolume} alt='hour-trading-volume' />
                         <span className='text-neutral-100 text-sm font-semibold capitalize'>Total 24h trading volume</span>

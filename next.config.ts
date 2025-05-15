@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       issuer: /\.(js|ts)x?$/,
       use: ['@svgr/webpack'],
+      type: 'asset/resource',
     });
     return config;
   },

@@ -56,4 +56,12 @@ library.add(
   faQuestionCircle,
   faCheckCircle,
   faExclamationCircle,
-) 
+)
+
+// Export a function to initialize FontAwesome
+export function initFontAwesome() {
+  // This function can be called in a useEffect in your app
+  if (typeof window !== 'undefined') {
+    require('@fortawesome/fontawesome-svg-core/styles.css')
+  }
+} 

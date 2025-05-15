@@ -70,6 +70,7 @@ const config: Config = {
           '300': '#C0C0C0',
           '900': '#5558FF',
           '1000': '#1E1E1E',
+          '2000': '#112D60',
         },
         black: {
           '100': '#0F0F0F',
@@ -89,10 +90,13 @@ const config: Config = {
         sans: ['Pretendard', 'sans-serif'],
       },
       fontWeight: {
-        'normal': 400,
+        'normal': '400',
       },
       fontSize: {
         '10': '10px'
+      },
+      gap: {
+        '15': '60px',
       },
       spacing: {
         '72': '18rem',
@@ -111,12 +115,12 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0px" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0px" },
         },
       },
       animation: {
@@ -130,7 +134,7 @@ const config: Config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities, theme }) {
       addUtilities({
         '.text-shadow-sm': {
           textShadow: '1px 1px 2px rgba(0, 0, 0, 0.25)',
@@ -139,10 +143,18 @@ const config: Config = {
           textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
         },
         '.hover-gradient': {
-          '@apply hover:bg-gradient-primary hover:from-primary-300 hover:to-secondary-400': {},
+          '&:hover': {
+            background: 'linear-gradient(90deg, #15DFFD 3.63%, #761BB3 100.06%)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }
         },
         '.linear-gradient-connect': {
-          '@apply bg-gradient-primary rounded-3xl text-sm font-medium': {},
+          background: 'linear-gradient(93deg, rgba(17, 45, 96, 0.50) 2.14%, rgba(136, 51, 238, 0.50) 98.03%)',
+          borderRadius: '24px',
+          fontSize: '0.875rem',
+          fontWeight: '500',
         },
         '.text-linear-200': {
           color: '#5558FF',
