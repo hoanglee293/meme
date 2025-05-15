@@ -134,178 +134,55 @@ body {
 
 /* custom hard code*/
 .text-gradient {
-  background: linear-gradient(90deg, #15DFFD 3.63%, #761BB3 100.06%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @apply bg-gradient-hover bg-clip-text text-transparent;
 }
 
 .hover-gradient:hover {
-  background: linear-gradient(90deg, var(--Colors-Primary-300, #15DFFD) 3.63%, var(--Colors-Secondary-400, #761BB3) 100.06%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
+  @apply bg-gradient-hover bg-clip-text text-transparent;
 }
 
 .linear-gradient-connect {
-  background: var(--Linrear-Tm-01, linear-gradient(93deg, rgba(17, 45, 96, 0.50) 2.14%, rgba(136, 51, 238, 0.50) 98.03%));
+  @apply bg-gradient-overlay from-theme-gradient-overlay-start to-theme-gradient-overlay-end;
 }
 
 .container-body {
-  max-width: 1920px;
-  width: 100%;
-  
-  margin-right: auto;
-  margin-left: auto;
+  @apply max-w-[1920px] w-full mx-auto;
 }
 
+.container-trading:before,
 .container-body::before {
   content: '';
-  position: absolute;
-  top: 250px;
-  left: -100px;
-  width: 476px;
-  height: 139px;
-  transform: rotate(-33.023deg);
-  flex-shrink: 0;
-  border-radius: 476px;
-  background: rgba(99, 249, 254, 0.30);
-  filter: blur(50px);
-  z-index: 0;
+  @apply absolute top-[150px] -left-[200px] w-[476px] h-[139px] -rotate-[33.023deg] flex-shrink-0 rounded-[476px] glow-blue z-0;
 }
 
+.container-trading::after,
 .container-body::after {
   content: '';
-  position: absolute;
-  top: 168px;
-  right: -100px;
-  width: 476px;
-  height: 139px;
-  flex-shrink: 0;
-  border-radius: 476px;
-  background: rgba(151, 43, 223, 0.52);
-  filter: blur(50px);
-  z-index: 0;
+  @apply absolute top-[168px] -right-[100px] w-[476px] h-[139px] flex-shrink-0 rounded-[476px] glow-purple z-0;
 }
 
 .box-gradient {
-  border: 1px solid #5558FF;
-  background: linear-gradient(93deg, rgba(17, 45, 96, 0.50) 2.14%, rgba(136, 51, 238, 0.50) 98.03%);
-  backdrop-filter: blur(5px);
+  @apply border border-theme-neutral-900 bg-gradient-overlay from-theme-gradient-overlay-start to-theme-gradient-overlay-end backdrop-blur-[5px];
 }
 
 .box-gradient:hover {
-  background: linear-gradient(93deg, rgba(136, 51, 238, 0.50) 2.14%, rgba(17, 45, 96, 0.50) 98.03%);
+  @apply bg-gradient-overlay from-theme-gradient-overlay-end to-theme-gradient-overlay-start;
 }
 
 .check {
-  background: linear-gradient(90deg, var(--Colors-Primary-300, #15DFFD) 1.85%, var(--Colors-Secondary-200, #BA72EA) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @apply bg-gradient-hover bg-clip-text text-transparent;
 }
 
 .dark .border-linear-200 {
-  border: 1px solid var(--linear-200);
-  box-shadow: 0px 0px 4px 0px rgba(232, 232, 232, 0.50);
-  backdrop-filter: blur(5px);
+  @apply border border-theme-neutral-900 shadow-custom backdrop-blur-[5px];
 }
+
 .dark .bg-neutral-1000 {
-  background-color: rgba(30, 30, 30, 0.80);
-  z-index: 1;
+  @apply bg-theme-neutral-1000/80 z-[1];
 }
+
 .box-shadow-info {
-  box-shadow: 0px 0px 4px 0px rgba(232, 232, 232, 0.50);
-  background: rgba(30, 30, 30, 0.80);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-
-    /* Custom colors */
-    --gradient-start: 191 100% 50%;
-    --gradient-end: 191 100% 65%;
-    --header-bg: 0 0% 100%;
-    --header-border: 240 5.9% 90%;
-    --search-bg: 240 4.8% 95.9%;
-    --search-border: 240 5.9% 90%;
-    --search-placeholder: 240 3.8% 46.1%;
-    --button-gradient-start: 191 100% 50%;
-    --button-gradient-end: 191 100% 65%;
-    --button-text: 0 0% 100%;
-    --dropdown-bg: 0 0% 100%;
-    --dropdown-border: 240 5.9% 90%;
-    --dropdown-hover: 240 4.8% 95.9%;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-
-    /* Custom colors */
-    --gradient-start: 191 100% 50%;
-    --gradient-end: 191 100% 65%;
-    --header-bg: 240 10% 3.9%;
-    --header-border: 240 3.7% 15.9%;
-    --search-bg: 240 3.7% 15.9%;
-    --search-border: 240 3.7% 15.9%;
-    --search-placeholder: 240 5% 64.9%;
-    --button-gradient-start: 191 100% 50%;
-    --button-gradient-end: 191 100% 65%;
-    --button-text: 0 0% 100%;
-    --dropdown-bg: 240 10% 3.9%;
-    --dropdown-border: 240 3.7% 15.9%;
-    --dropdown-hover: 240 3.7% 15.9%;
-  }
+  @apply shadow-custom bg-theme-neutral-1000/80;
 }
 
 @layer base {
@@ -324,14 +201,8 @@ body {
 
 .hover-gradient::after {
   content: '';
-  @apply absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[hsl(var(--gradient-start))] to-[hsl(var(--gradient-end))] transition-all duration-300;
+  @apply absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-hover from-theme-primary-300 to-theme-secondary-300 transition-all duration-300;
 }
-
-
-
-/* .linear-gradient-connect {
-  @apply bg-gradient-to-r from-[hsl(var(--button-gradient-start))] to-[hsl(var(--button-gradient-end))] text-[hsl(var(--button-text))];
-} */
 
 /* Custom components */
 .search-input {
@@ -344,4 +215,11 @@ body {
 
 .dropdown-item {
   @apply hover:bg-[hsl(var(--dropdown-hover))];
+}
+
+.clip-text:hover{
+  background: var(--Linear-200, linear-gradient(0deg, #5558FF 0%, #00C0FF 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

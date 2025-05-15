@@ -168,7 +168,7 @@ export default function Trading() {
       setSortType("desc");
     }
   };
-
+  console.log("activeTab", activeTab)
   return (
     <div className="z-1">
       {showToast && (
@@ -193,22 +193,21 @@ export default function Trading() {
             </TabsTrigger>
           </TabsList> */}
            <div className="flex gap-6 mb-4">
-                <button className={` rounded-md text-sm font-medium bg-black-100 px-2 py-1 border-1 border-solid cursor-pointer ${activeTab === '1' ? 'border-[#15DFFD] bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('1')}>
-                    <span className={`${activeTab === '1' ? 'check' : ''}`}>All token markets</span>
+                <button className={` rounded-sm text-sm font-medium text-neutral-400 px-2 py-1 border-1 z-10 border-solid border-[#15DFFD] cursor-pointer ${activeTab === '1' ? ' bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('1')}>
+                    <span className={`${activeTab === '1' ? 'gradient-hover ' : ''}`}>All token markets</span>
                 </button>
-                <button className={`rounded-md text-neutral-100 text-sm font-medium px-2 py-1 border-1 border-solid cursor-pointer ${activeTab === '2' ? 'border-[#15DFFD] bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('2')}>
-                    <span className={`${activeTab === '2' ? 'check' : ''}`}>New & trending</span>
+                <button className={`rounded-sm text-neutral-400 text-sm font-medium px-2 py-1 border-1 z-10 border-solid cursor-pointer ${activeTab === '2' ? ' bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('2')}>
+                    <span className={`${activeTab === '2' ? 'gradient-hover' : ''}`}>New & trending</span>
                 </button>
-                <button className={`rounded-md text-neutral-100 text-sm font-medium px-2 py-1 border-1 border-solid cursor-pointer ${activeTab === '3' ? 'border-[#15DFFD] bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('3')}>
-                    <span className={`${activeTab === '3' ? 'check' : ''}`}>Meme</span>
+                <button className={`rounded-sm text-neutral-400 text-sm font-medium px-2 py-1 border-1 z-10 border-solid cursor-pointer ${activeTab === '3' ? ' bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('3')}>
+                    <span className={`${activeTab === '3' ? 'gradient-hover' : ''}`}>Meme</span>
                 </button>
             </div>
 
           <TabsContent value="1">
             {displayTokens && (
-              <CardContent className="w-full">
+              <CardContent className="w-full ">
                 <TableTokenList
-                  
                   tokens={displayTokens}
                   onCopyAddress={handleCopyAddress}
                   onStarClick={handleStarClick}

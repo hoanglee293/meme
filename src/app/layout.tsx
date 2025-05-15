@@ -43,7 +43,7 @@ export default function RootLayout({
             >
               <Header />
               <VideoBackground />
-              <main className='grow'>{children}</main>
+              <main className='grow dark:bg-[#000000a8]'>{children}</main>
             </body>
           </ThemeProvider>
         </LangProvider>

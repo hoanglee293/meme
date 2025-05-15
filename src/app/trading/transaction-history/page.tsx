@@ -131,8 +131,8 @@ export default function TransactionHistory() {
   ]
 
   return (
-    <div className="bg-neutral-1000 box-shadow-info rounded-xl p-3 overflow-hidden">
-      <div className="flex border-neutral-800 h-[30px]">
+    <div className="box-shadow-info rounded-xl p-3 overflow-hidden">
+      <div className="flex border-neutral-800 h-[30px] bg-neutral-1000 rounded-xl">
         <button
           className={`flex-1 rounded-xl text-sm cursor-pointer font-medium uppercase text-center ${activeTab === "all" ? "linear-gradient-connect" : "text-neutral-400"}`}
           onClick={() => setActiveTab("all")}
@@ -151,7 +151,7 @@ export default function TransactionHistory() {
         <div className="overflow-x-auto max-h-[330px] w-full">
           <table className="w-full text-sm table-fixed">
             <thead className="sticky top-0 z-10 bg-[#0F0F0F]">
-              <tr className="border-b">
+              <tr className="border-b border-neutral-800">
                 <th className="px-4 py-2 text-left text-neutral-200 font-medium w-[15%]">Time</th>
                 <th className="px-4 py-2 text-left text-neutral-200 font-medium w-[8%]">Type</th>
                 <th className="px-4 py-2 text-left text-neutral-200 font-medium w-[10%]">Price</th>
@@ -167,14 +167,14 @@ export default function TransactionHistory() {
               {transactions.map((tx, index) => (
                 <tr key={index} className="hover:bg-neutral-800/30">
                   <td className="px-4 py-2 truncate">{tx.time}</td>
-                  <td className={`px-4 py-2 truncate ${tx.type === "BUY" ? "text-green-500" : "text-red-500"}`}>{tx.type}</td>
-                  <td className="px-4 py-2 truncate">{tx.price}</td>
-                  <td className="px-4 py-2 truncate">{tx.amount}</td>
-                  <td className="px-4 py-2 truncate">{tx.total}</td>
-                  <td className="px-4 py-2 truncate">{tx.source}</td>
-                  <td className="px-4 py-2 truncate">{tx.hash}</td>
-                  <td className="px-4 py-2 truncate">{tx.status}</td>
-                  <td className="px-4 py-2 flex items-center truncate">
+                  <td className={`px-4 text-neutral-100 text-xs py-2 font-medium truncate ${tx.type === "BUY" ? "text-green-500" : "text-red-500"}`}>{tx.type}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium truncate">{tx.price}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium truncate">{tx.amount}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium truncate">{tx.total}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium truncate">{tx.source}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium truncate">{tx.hash}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium truncate">{tx.status}</td>
+                  <td className="px-4 text-neutral-100 text-xs py-2 font-medium flex items-center truncate">
                     {tx.address}
                     <button className="ml-1 text-neutral-500 hover:text-neutral-300">
                       <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

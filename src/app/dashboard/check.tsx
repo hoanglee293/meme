@@ -13,7 +13,7 @@ const Check = () => {
         <div className='z-1'>
             {/* Tabs */}
             <div className="flex gap-6 mb-4">
-                <button className={` rounded-md text-sm font-medium bg-black-100 px-2 py-1 border-1 border-solid cursor-pointer ${activeTab === '1' ? 'border-[#15DFFD] bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('1')}>
+                <button className={` rounded-md text-sm font-medium px-2 py-1 border-1 border-solid cursor-pointer ${activeTab === '1' ? 'bg-white' : 'border-transparent'}`} onClick={() => setActiveTab('1')}>
                     <span className={`${activeTab === '1' ? 'check' : ''}`}>All token markets</span>
                 </button>
                 <button className={`rounded-md text-neutral-100 text-sm font-medium px-2 py-1 border-1 border-solid cursor-pointer ${activeTab === '2' ? 'border-[#15DFFD] bg-[#0F0F0F]' : 'border-transparent'}`} onClick={() => setActiveTab('2')}>

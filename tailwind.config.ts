@@ -23,6 +23,49 @@ const config: Config = {
         'linear': {
           '200': '#5558FF',
         },
+        // Theme Colors
+        'theme': {
+          'primary': {
+            '300': '#15DFFD', // Light blue
+            '400': '#112D60', // Dark blue
+          },
+          'secondary': {
+            '200': '#BA72EA', // Light purple
+            '300': '#761BB3', // Medium purple
+            '400': '#8833EE', // Bright purple
+          },
+          'neutral': {
+            '100': '#eeeeee',
+            '200': '#D7D7D7',
+            '300': '#C0C0C0',
+            '900': '#5558FF',
+            '1000': '#1E1E1E',
+            '2000': '#112D60',
+          },
+          'green': {
+              'default': '#1FC16B',
+              '200': '#1FC16B',
+            },
+          'red': {
+              '100': '#FB3748',
+            },
+          'gradient': {
+            'start': '#15DFFD',
+            'end': '#761BB3',
+            'linear': {
+              'start': '#5558FF',
+              'end': '#00C0FF',
+            },
+            'overlay': {
+              'start': 'rgba(17, 45, 96, 0.50)',
+              'end': 'rgba(136, 51, 238, 0.50)',
+            },
+            'glow': {
+              'blue': 'rgba(99, 249, 254, 0.30)',
+              'purple': 'rgba(151, 43, 223, 0.52)',
+            },
+          }
+        },
         // HSL Variables
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,34 +100,16 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom Colors
-        'secondary-400': '#761BB3',
-        'neutral-1000': '#1E1E1E',
-        'linear-tm': '#112D60',
-        green: {
-          '200': '#1FC16B',
-        },
-        neutral: {
-          '100': '#eeeeee',
-          '200': '#D7D7D7',
-          '300': '#C0C0C0',
-          '900': '#5558FF',
-          '1000': '#1E1E1E',
-          '2000': '#112D60',
-        },
-        black: {
-          '100': '#0F0F0F',
-        },
-        
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(0deg, #112D60 0%, #83E 100%)',
-        'gradient-hover': 'linear-gradient(90deg, #15DFFD 3.63%, #761BB3 100.06%)',
+        'gradient-primary': 'linear-gradient(0deg, var(--tw-gradient-stops))',
+        'gradient-hover': 'linear-gradient(90deg, var(--tw-gradient-stops))',
+        'gradient-overlay': 'linear-gradient(93deg, var(--tw-gradient-stops))',
       },
       backgroundColor: {
-        'linear-tm': '#112D60',
-        'linear-100': '#0F0F0F',
-        'linear-200': '#5558FF',
+        'linear-tm': 'var(--tw-theme-primary-400)',
+        'linear-100': 'var(--tw-theme-neutral-1000)',
+        'linear-200': 'var(--tw-theme-neutral-900)',
       },
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
@@ -103,8 +128,11 @@ const config: Config = {
         '84': '21rem',
         '96': '24rem',
       },
+      borderWidth: {
+        '1': '1px',
+      },
       borderColor: {
-        'linear-200': '#5558FF',
+        'linear-200': 'var(--tw-theme-neutral-900)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -144,23 +172,49 @@ const config: Config = {
         },
         '.hover-gradient': {
           '&:hover': {
-            background: 'linear-gradient(90deg, #15DFFD 3.63%, #761BB3 100.06%)',
+            background: `linear-gradient(90deg, ${theme('colors.theme.primary.300')} 3.63%, ${theme('colors.theme.secondary.300')} 100.06%)`,
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }
         },
         '.linear-gradient-connect': {
-          background: 'linear-gradient(93deg, rgba(17, 45, 96, 0.50) 2.14%, rgba(136, 51, 238, 0.50) 98.03%)',
+          background: `linear-gradient(93deg, ${theme('colors.theme.gradient.overlay.start')} 2.14%, ${theme('colors.theme.gradient.overlay.end')} 98.03%)`,
           borderRadius: '24px',
           fontSize: '0.875rem',
           fontWeight: '500',
         },
         '.text-linear-200': {
-          color: '#5558FF',
+          color: theme('colors.theme.neutral.900'),
         },
         '.shadow-custom': {
-          boxShadow: '0px 0px 4px 0px rgba(232, 232, 232, 0.50)',
+          boxShadow: theme('boxShadow.custom'),
+        },
+        '.glow-blue': {
+          background: theme('colors.theme.gradient.glow.blue'),
+          filter: 'blur(50px)',
+        },
+        '.glow-purple': {
+          background: theme('colors.theme.gradient.glow.purple'),
+          filter: 'blur(50px)',
+        },
+        '.gradient-primary': {
+          background: `linear-gradient(0deg, ${theme('colors.theme.primary.400')} 0%, ${theme('colors.theme.secondary.400')} 100%)`,
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        },
+        '.gradient-hover': {
+          background: `linear-gradient(90deg, ${theme('colors.theme.primary.300')} 3.63%, ${theme('colors.theme.secondary.300')} 100.06%)`,
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        },
+        '.gradient-overlay': {
+          background: `linear-gradient(93deg, ${theme('colors.theme.gradient.overlay.start')} 2.14%, ${theme('colors.theme.gradient.overlay.end')} 98.03%)`,
+        },
+        '.linear-gradient-200': {
+          background: `linear-gradient(0deg, ${theme('colors.theme.gradient.linear.start')} 0%, ${theme('colors.theme.gradient.linear.end')} 100%)`,
         },
       })
     }),

@@ -93,9 +93,9 @@ const Header = () => {
             href: '/wallet'
         },
     ]
-
+    console.log(pathname)
     return (
-        <header className="sticky top-0 z-50 w-full  bg-[hsl(var(--header-bg))]">
+        <header className="sticky top-0 z-50 w-full  bg-black">
             <div className='flex items-center justify-between px-10 py-[14px]'>
                 <div className='flex items-center gap-15'>
                     <Link href="/"><Image src={logo} alt="logo" height={32} /></Link>
@@ -104,7 +104,7 @@ const Header = () => {
                             <Link
                                 href={item.href}
                                 key={index}
-                                className={`hover-gradient hover:underline text-muted-foreground transition-colors ${"/" + pathname === item.href ? 'text-foreground' : ''}`}
+                                className={`hover:gradient-hover text-neutral-200 clip-text text-muted-foreground transition-colors ${pathname === item.href ? 'gradient-hover' : ''}`}
                             >
                                 {item.name}
                             </Link>

@@ -84,10 +84,10 @@ export function TableTokenList({
 
   return (
     <Card className="border-none dark:shadow-blue-900/5">
-      <CardContent className="p-0">
-        <div className="overflow-hidden rounded-lg border">
+      <CardContent className="p-0 relative">
+        <div className="overflow-hidden rounded-xl border-1 z-10 border-solid border-y-[#15DFFD] border-x-[#720881]">
           <Table className="">
-            <TableHeader>
+            <TableHeader className="border-b-1 border-b-solid border-b-neutral-400">
               <TableRow className="bg-muted/50">
                 <TableHead className={`pl-[50px] ${textTitle}`}>{t("trading.token")}</TableHead>
                 <TableHead className={`${textTitle}`}>{t("trading.address")}</TableHead>
@@ -158,7 +158,7 @@ export function TableTokenList({
                 <TableHead className={`${textTitle}`}></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody >
               {isLoading ? (
                 <TableRow className="hover:bg-white">
                   <TableCell colSpan={11} className="h-32 hover:bg-neutral-900">

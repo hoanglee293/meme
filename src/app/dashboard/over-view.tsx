@@ -32,16 +32,16 @@ const OverView = () => {
         fluctuation: '(0.00%)'
     }
     return (
-        <>
-            <h1 className='text-gradient uppercase text-[14px] font-medium flex items-center gap-2'>
-                Favorite
+        <div className='flex flex-col gap-2'>
+            <div className='relative clip-text uppercase text-sm font-semibold flex items-center gap-2'>
+                <span className='gradient-hover'>Favorite </span>
                 <Image src={star} alt="star" />
-            </h1>
-            <div className='flex gap-6'>
+            </div>
+            <div className='flex gap-6 z-10'>
                 <div className='w-full rounded-lg bg-[#0F0F0FD9] z-1'>
 
                     {dataFavorite.map((item, index) => (
-                        <div key={index} className={`w-full flex px-6 justify-between max-h-[45px] py-[6px] ${index !== dataFavorite.length - 1 ? 'border-b border-neutral-900' : ''}`}>
+                        <div key={index} className={`w-full flex px-6 justify-between max-h-[45px] py-[6px] ${index !== dataFavorite.length - 1 ? 'border-b-2 border-neutral-800' : ''}`}>
                             <div className='flex items-center gap-[14px]'>
                                 <Image src={token} alt="logo" />
                                 <span className='uppercase text-xs font-medium'>PopCat</span>
@@ -87,7 +87,7 @@ const OverView = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
