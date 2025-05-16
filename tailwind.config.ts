@@ -27,7 +27,8 @@ const config: Config = {
         'theme': {
           'primary': {
             '300': '#15DFFD', // Light blue
-            '400': '#112D60', // Dark blue
+            '400': '#02B7D2', // Primary blue
+            '500': '#112D60', // Dark blue
           },
           'secondary': {
             '200': '#BA72EA', // Light purple
@@ -38,16 +39,17 @@ const config: Config = {
             '100': '#eeeeee',
             '200': '#D7D7D7',
             '300': '#C0C0C0',
-            '900': '#5558FF',
+            '900': '#353535',
             '1000': '#1E1E1E',
             '2000': '#112D60',
           },
           'green': {
-              'default': '#1FC16B',
+              '100': '#bbf7d01a',
               '200': '#1FC16B',
             },
           'red': {
               '100': '#FB3748',
+              '200': '#fb37481a',
             },
           'gradient': {
             'start': '#15DFFD',
@@ -215,6 +217,12 @@ const config: Config = {
         },
         '.linear-gradient-200': {
           background: `linear-gradient(0deg, ${theme('colors.theme.gradient.linear.start')} 0%, ${theme('colors.theme.gradient.linear.end')} 100%)`,
+        },
+        '.linear-200-bg': {
+          background: 'var(--Linear-200, linear-gradient(0deg, #5558FF 0%, #00C0FF 100%))',
+        },
+        '.linear-gradient-blue': {
+          background: 'linear-gradient(0deg, #5558FF 0%, #00C0FF 100%)',
         },
       })
     }),

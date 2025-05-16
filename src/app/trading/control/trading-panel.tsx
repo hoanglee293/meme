@@ -6,7 +6,8 @@ import { useState, useEffect } from "react"
 import { ChevronDown, Edit, Check } from "lucide-react"
 import pencil from "@/assets/svgs/pencil.svg"
 import Image from "next/image"
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select"
+import LanguageSelector from "@/app/components/select"
 const styleTextBase = "text-neutral-200 text-sm font-normal"
 type TradingMode = "buy" | "sell"
 
@@ -160,17 +161,17 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
     }
 
     return (
-        <div className="rounded-lg flex flex-col gap-3 h-full overflow-y-auto">
+        <div className="rounded-lg flex flex-col justify-between gap-3 h-full overflow-y-auto">
             {/* BUY/SELL Toggle */}
             <div className="flex h-[30px] bg-neutral-1000 rounded-xl">
                 <button
-                    className={`flex-1 rounded-3xl text-sm cursor-pointer font-normal uppercase text-center ${mode === "buy" ? "border-green-default text-theme-green-200 border-1" : "text-neutral-400"}`}
+                    className={`flex-1 rounded-3xl text-sm cursor-pointer uppercase text-center ${mode === "buy" ? "border-green-default text-theme-green-200 border-1 bg-theme-green-100 font-semibold" : "text-neutral-400"}`}
                     onClick={() => setMode("buy")}
                 >
                     Buy
                 </button>
                 <button
-                    className={`flex-1 rounded-3xl cursor-pointer text-sm font-normal uppercase text-center ${mode === "sell" ? "border-green-default text-theme-red-100 border-1" : "text-neutral-400"}`}
+                    className={`flex-1 rounded-3xl cursor-pointer text-sm uppercase text-center ${mode === "sell" ? "border-green-default text-theme-red-100 border-1 font-semibold bg-theme-red-200" : "text-neutral-400"}`}
                     onClick={() => setMode("sell")}
                 >
                     Sell
@@ -187,7 +188,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                         className="bg-transparent w-full text-neutral-200 font-medium text-base focus:outline-none"
                     />
                     {!isDirectAmountInput && (
-                        <span className="text-neutral-200 text-sm font-normal">{percentage.toFixed(2)}%</span>
+                        <span className={`${styleTextBase} text-theme-primary-300`}>{percentage.toFixed(2)}%</span>
                     )}
                 </div>
             </div>
@@ -224,7 +225,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                 </>
             )}
             {/* Percentage Buttons */}
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-3 mb-3">
                 {percentageValues.map((percent, index) => (
                     <div key={index} className="relative w-full">
                         {editingIndex === index ? (
@@ -265,62 +266,67 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             {mode == "buy" && (
                 <>
                     <span className="text-neutral-200 text-sm font-normal">{currency.symbol}</span>
-            <div className="flex items-center justify-between gap-3">
-                {amountValues.map((value, index) => (
-                    <div key={index} className="relative w-full">
-                        {editingAmountIndex === index ? (
-                            <div className="flex items-center gap-1 bg-neutral-700 rounded-md">
-                                <input
-                                    type="number"
-                                    value={editAmountValue}
-                                    onChange={(e) => setEditAmountValue(e.target.value)}
-                                    onKeyDown={(e) => handleAmountEditKeyPress(e, index)}
-                                    className="w-full bg-transparent text-neutral-200 px-2 py-1 rounded-md focus:outline-none text-xs"
-                                    min="0.000001"
-                                    step="0.000001"
-                                    autoFocus
-                                />
-                                <button
-                                    onClick={() => handleAmountEditSave(index)}
-                                    className="p-1 hover:text-theme-primary-300"
-                                >
-                                    <Check className="w-4 h-4" />
-                                </button>
+                    <div className="flex items-center justify-between gap-3">
+                        {amountValues.map((value, index) => (
+                            <div key={index} className="relative w-full">
+                                {editingAmountIndex === index ? (
+                                    <div className="flex items-center gap-1 bg-neutral-700 rounded-md">
+                                        <input
+                                            type="number"
+                                            value={editAmountValue}
+                                            onChange={(e) => setEditAmountValue(e.target.value)}
+                                            onKeyDown={(e) => handleAmountEditKeyPress(e, index)}
+                                            className="w-full bg-transparent text-neutral-200 px-2 py-1 rounded-md focus:outline-none text-xs"
+                                            min="0.000001"
+                                            step="0.000001"
+                                            autoFocus
+                                        />
+                                        <button
+                                            onClick={() => handleAmountEditSave(index)}
+                                            className="p-1 hover:text-theme-primary-300"
+                                        >
+                                            <Check className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button
+                                        onClick={() => handleSetAmount(value)}
+                                        className="px-1 w-full h-[30px] rounded-md flex items-center justify-between gap-1 border border-solid border-neutral-200 text-xs font-semibold text-neutral-100"
+                                    >
+                                        {value}
+                                        <Image
+                                            src={pencil}
+                                            alt="pencil"
+                                            className="cursor-pointer hover:opacity-80"
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                handleAmountEditClick(index)
+                                            }}
+                                        />
+                                    </button>
+                                )}
                             </div>
-                        ) : (
-                            <button
-                                onClick={() => handleSetAmount(value)}
-                                className="px-1 w-full h-[30px] rounded-md flex items-center justify-between gap-1 border border-solid border-neutral-200 text-xs font-semibold text-neutral-100"
-                            >
-                                {value}
-                                <Image
-                                    src={pencil}
-                                    alt="pencil"
-                                    className="cursor-pointer hover:opacity-80"
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                        handleAmountEditClick(index)
-                                    }}
-                                />
-                            </button>
-                        )}
+                        ))}
                     </div>
-                ))}
-            </div>
                 </>
             )}
             {/* Select Groups Dropdown */}
             <div className="relative mt-3">
-                <button className="bg-neutral-900 w-full py-2 px-4 rounded-full flex items-center justify-between text-neutral-400">
-                    <span>Select groups...</span>
-                    <ChevronDown className="w-5 h-5" />
-                </button>
+                <Select>
+                    <SelectTrigger className="bg-neutral-900 w-full py-2 px-4 rounded-full flex items-center justify-between text-neutral-400 border border-theme-neutral-900">
+                        <SelectValue placeholder="Select groups..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-neutral-900 box-shadow-info rounded-xl z-10">
+                        <SelectItem className="text-neutral-400 cursor-pointer bg-neutral-900" value="apple">axeinfinity</SelectItem>
+                        <SelectItem className="text-neutral-400 cursor-pointer bg-neutral-900" value="banana">Liquidity</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
 
             {/* Action Button */}
-            <div className="mt-auto">
+            <div className="mt-3">
                 <button
-                    className={`w-full py-2 rounded-full text-white font-medium ${mode === "buy" ? "bg-theme-green-200 hover:bg-theme-green-200/90" : "bg-theme-red-100 hover:bg-theme-red-100/90"
+                    className={`w-full py-2 rounded-full text-white font-semibold text-sm ${mode === "buy" ? "bg-theme-green-200 hover:bg-theme-green-200/90" : "bg-theme-red-100 hover:bg-theme-red-100/90"
                         }`}
                 >
                     {mode === "buy" ? "BUY" : "SELL"}

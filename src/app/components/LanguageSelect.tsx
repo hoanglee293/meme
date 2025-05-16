@@ -12,7 +12,7 @@ export function LangToggle() {
   return (
     <DropdownMenu >
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="w-full dark:text-white hover:bg-white/10 px-2 flex justify-start gap-2">
+        <Button variant="ghost" size="icon" className="w-full bg-neutral-900 dark:text-theme-neutral-100 px-2 flex justify-start gap-2">
           {currentLang && <img src={currentLang.flag} alt={t(currentLang.translationKey)} className="w-6 h-5 rounded" />}
           <span>{currentLang && t(currentLang.translationKey)}</span>
         </Button>

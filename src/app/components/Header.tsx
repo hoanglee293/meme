@@ -121,15 +121,14 @@ const Header = () => {
                         <input
                             type="text"
                             placeholder={t('searchPlaceholder')}
-                            className="rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:outline-none focus:ring-1 focus:ring-[hsl(var(--ring))] max-h-[30px] border-1 border-solid border-linear-tm"
+                            className="rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:outline-none bg-black focus:ring-1 focus:ring-[hsl(var(--ring))] max-h-[30px] border-1 border-solid border-theme-neutral-900"
                         />
                         <Search className=" absolute left-3 top-2 h-4 w-4 text-muted-foreground " />
                     </div>
 
                     <Display />
-                    <ThemeToggle />
 
-                    {mounted && (
+                    {mounted ? (
                         <>
                             {!isAuthenticated && (
                                 <button
@@ -161,7 +160,13 @@ const Header = () => {
                                 </DropdownMenu>
                             )}
                         </>
-                    )}
+                    ) :
+                        <button
+                            className="linear-gradient-connect font-medium px-6 py-[6px] rounded-full"
+                        >
+                            Connecting...
+                        </button>
+                    }
                     <Dialog open={isWalletDialogOpen} onOpenChange={setIsWalletDialogOpen}>
                         <DialogContent className="sm:max-w-[425px] bg-card">
                             <DialogHeader>

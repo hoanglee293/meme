@@ -39,11 +39,13 @@ export default function RootLayout({
         <LangProvider>
           <ThemeProvider>
             <body
-              className={`antialiased`}
+              className={`antialiased min-h-screen flex flex-col`}
             >
               <Header />
               <VideoBackground />
-              <main className='grow dark:bg-[#000000a8]'>{children}</main>
+              <main className='flex-1 w-full dark:bg-[#000000a8]'>
+              {children}
+              </main>
             </body>
           </ThemeProvider>
         </LangProvider>
