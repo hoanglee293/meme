@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import { Smile, Send, Image as ImageIcon, X } from "lucide-react"
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react'
+import EmojiPicker, { EmojiClickData, Theme } from 'emoji-picker-react'
 import Image from "next/image"
 import token from "@/assets/svgs/token.svg"
 
@@ -115,7 +115,7 @@ const ChatTrading = () => {
       }
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-gray-50 dark:bg-theme-neutral-1000">
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.map((message) => (
                     <div key={message.id} className={`flex ${message.sender.isCurrentUser ? "justify-end" : "items-start"}`}>
@@ -126,18 +126,26 @@ const ChatTrading = () => {
                                     alt={message.sender.name}
                                     width={40}
                                     height={40}
-                                    className="rounded-full"
+                                    className="rounded-full ring-2 ring-theme-primary-400/20 dark:ring-theme-primary-400/30"
                                 />
                             </div>
                         )}
                         <div
-                            className={`max-w-[80%] rounded-lg p-3 ${message.sender.isCurrentUser
-                                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                                    : "bg-[#1a1a1a] text-white border border-purple-600"
-                                }`}
+                            className={`max-w-[80%] rounded-lg p-3 ${
+                                message.sender.isCurrentUser
+                                    ? "bg-theme-primary-400 text-white shadow-sm dark:bg-theme-primary-400/90"
+                                    : "bg-white dark:bg-neutral-800 text-gray-800 dark:text-white border border-gray-200 dark:border-theme-primary-400/30 shadow-sm"
+                            }`}
                         >
-                            {!message.sender.isCurrentUser && <div className="font-medium text-sm mb-1">{message.sender.name}</div>}
-                            <p className="text-sm">{message.text}</p>
+                            {!message.sender.isCurrentUser && (
+                                <div className="font-medium text-sm mb-1 text-theme-primary-500 dark:text-theme-primary-300">
+                                    {message.sender.name}
+                                </div>
+                            )}
+                            <p className="text-sm text-gray-800 dark:text-white">{message.text}</p>
+                            <div className="text-xs mt-1 text-gray-500 dark:text-gray-400">
+                                {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -145,15 +153,21 @@ const ChatTrading = () => {
             </div>
 
             {/* Message Input */}
-            <div className="p-4 border-t border-neutral-800">
+            <div className="p-4 border-t border-gray-100 dark:border-neutral-800 bg-white dark:bg-theme-neutral-1000 shadow-sm">
                 <div className="relative">
                     {/* Emoji Picker */}
                     {showEmojiPicker && (
                         <div ref={emojiPickerRef} className="absolute bottom-full right-0 mb-2 z-50">
-                            <EmojiPicker onEmojiClick={onEmojiClick} />
+                            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-gray-200 dark:border-neutral-700">
+                                <EmojiPicker 
+                                    onEmojiClick={onEmojiClick}
+                                    theme={document.documentElement.classList.contains('dark') ? Theme.DARK : Theme.LIGHT}
+                                    width={320}
+                                    height={400}
+                                />
+                            </div>
                         </div>
                     )}
-
 
                     <div className="flex items-center gap-2">
                         <div className="relative flex-1">
@@ -163,7 +177,11 @@ const ChatTrading = () => {
                                 value={newMessage}
                                 onChange={(e) => setNewMessage(e.target.value)}
                                 onKeyPress={handleKeyPress}
-                                className="w-full bg-neutral-800 text-white rounded-full px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-theme-primary-400"
+                                className="w-full bg-gray-50 dark:bg-neutral-800 text-gray-900 dark:text-white rounded-full px-4 py-2 pr-10 
+                                         focus:outline-none focus:ring-2 focus:ring-theme-primary-400/50 
+                                         placeholder-gray-400 dark:placeholder-gray-500
+                                         border border-gray-200 dark:border-neutral-700
+                                         shadow-sm hover:border-theme-primary-400/30 transition-colors"
                             />
                             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                 <button 
@@ -171,7 +189,8 @@ const ChatTrading = () => {
                                         setShowEmojiPicker(!showEmojiPicker)
                                         setShowIconPicker(false)
                                     }}
-                                    className="text-gray-400 hover:text-theme-primary-400 transition-colors"
+                                    className="text-gray-400 hover:text-theme-primary-500 dark:text-gray-400 
+                                             dark:hover:text-theme-primary-300 transition-colors"
                                 >
                                     <Smile className="h-5 w-5" />
                                 </button>
@@ -179,7 +198,11 @@ const ChatTrading = () => {
                         </div>
                         <button
                             onClick={handleSendMessage}
-                            className="bg-theme-primary-400 text-white rounded-full p-2 hover:bg-theme-primary-400/90 transition-colors"
+                            disabled={!newMessage.trim()}
+                            className={`rounded-full p-2 transition-colors
+                                     ${newMessage.trim() 
+                                        ? 'bg-theme-primary-400 hover:bg-theme-primary-500 text-white shadow-sm' 
+                                        : 'bg-gray-100 dark:bg-neutral-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'}`}
                         >
                             <Send className="h-5 w-5" />
                         </button>

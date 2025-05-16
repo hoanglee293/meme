@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Script from 'next/script';
 import "@/styles/globals.css";
 import Header from "@/app/components/Header";
 import '@/libs/fontawesome'
@@ -39,11 +38,11 @@ export default function RootLayout({
         <LangProvider>
           <ThemeProvider>
             <body
-              className={`antialiased min-h-screen flex flex-col`}
+              className={`antialiased min-h-screen flex flex-col bg-white dark:bg-black`}
             >
               <Header />
               <VideoBackground />
-              <main className='flex-1 w-full dark:bg-[#000000a8]'>
+              <main className='flex-1 w-full bg-white/80 dark:bg-[#000000a8]'>
               {children}
               </main>
             </body>

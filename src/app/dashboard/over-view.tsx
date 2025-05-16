@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import star from '@/assets/svgs/star.svg'
@@ -7,7 +8,10 @@ import hourTradingVolume from '@/assets/svgs/hour-trading-volume.svg'
 import monthTradingVolume from '@/assets/svgs/month-trading-volume.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { useTheme } from 'next-themes'
+
 const OverView = () => {
+    const { theme } = useTheme()
     const dataFavorite = [
         {
             name: 'PopCat',
@@ -38,10 +42,10 @@ const OverView = () => {
                 <Image src={star} alt="star" />
             </div>
             <div className='flex gap-6 z-10'>
-                <div className='w-full rounded-lg bg-[#0F0F0FD9] z-1'>
+                <div className='w-full rounded-lg border-1 border-theme-primary-300 dark:border-transparent dark:bg-[#0F0F0FD9] z-1'>
 
                     {dataFavorite.map((item, index) => (
-                        <div key={index} className={`w-full flex px-6 justify-between max-h-[45px] py-[6px] ${index !== dataFavorite.length - 1 ? 'border-b-2 border-neutral-800' : ''}`}>
+                        <div key={index} className={`w-full flex px-6 justify-between max-h-[45px] py-[6px]  ${index !== dataFavorite.length - 1 ? 'border-b-1 border-theme-primary-300 dark:border-theme-neutral-800' : ''}`}>
                             <div className='flex items-center gap-[14px]'>
                                 <Image src={token} alt="logo" />
                                 <span className='uppercase text-xs font-medium'>PopCat</span>
@@ -59,7 +63,7 @@ const OverView = () => {
                     ))}
                 </div>
 
-                <div className='w-full rounded-lg box-gradient pl-[50px] pr-[40px] flex  justify-between'>
+                <div className={`w-full rounded-lg  pl-[50px] pr-[40px] flex justify-between ${theme !== 'dark' ? 'linear-gradient-light' : 'box-gradient'}`}>
                     <div className='flex flex-col justify-center gap-[10px]'>
                         <h3 className='text-neutral-100 text-base font-semibold flex items-center gap-2'>{dataMarket.name} &ensp; <FontAwesomeIcon icon={faChevronRight} width={12} height={12} /></h3>
                         <div className='flex items-center gap-[41px]'>

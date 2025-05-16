@@ -25,7 +25,7 @@ const Check = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto text-neutral-100 bg-[#0F0F0FD9] rounded-lg z-2">
+            <div className="overflow-x-auto text-neutral-100 dark:bg-[#0F0F0FD9] rounded-lg z-2">
                 <table className="w-full text-sm">
                     <thead>
                         <tr className=" text-gray-400">

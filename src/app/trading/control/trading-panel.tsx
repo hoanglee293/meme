@@ -8,7 +8,7 @@ import pencil from "@/assets/svgs/pencil.svg"
 import Image from "next/image"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select"
 import LanguageSelector from "@/app/components/select"
-const styleTextBase = "text-neutral-200 text-sm font-normal"
+const styleTextBase = "text-gray-600 dark:text-neutral-200 text-sm font-normal"
 type TradingMode = "buy" | "sell"
 
 interface CryptoCurrency {
@@ -29,8 +29,9 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
     const [amount, setAmount] = useState("0.00")
     const [percentage, setPercentage] = useState(0)
     const [amountUSD, setAmountUSD] = useState("0.00")
-    const [percentageValues, setPercentageValues] = useState<number[]>([25, 50, 75, 100])
-    const [amountValues, setAmountValues] = useState<number[]>([0.1, 0.5, 1, 2])
+    const [percentageValues, setPercentageValues] = useState<number[]>([])
+    const [amountValues, setAmountValues] = useState<number[]>([])
+    const [isInitialized, setIsInitialized] = useState(false)
     const [editingIndex, setEditingIndex] = useState<number | null>(null)
     const [editValue, setEditValue] = useState<string>("")
     const [editingAmountIndex, setEditingAmountIndex] = useState<number | null>(null)
@@ -42,24 +43,70 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
 
     // Load values from Local Storage on component mount
     useEffect(() => {
-        const savedPercentages = localStorage.getItem('tradingPercentageValues')
-        const savedAmounts = localStorage.getItem('tradingAmountValues')
-        if (savedPercentages) {
-            setPercentageValues(JSON.parse(savedPercentages))
-        }
-        if (savedAmounts) {
-            setAmountValues(JSON.parse(savedAmounts))
+        try {
+            if (typeof window !== 'undefined') {
+                const savedPercentages = localStorage.getItem('tradingPercentageValues')
+                const savedAmounts = localStorage.getItem('tradingAmountValues')
+                
+                console.log('Loading from localStorage:', { savedPercentages, savedAmounts })
+                
+                if (savedPercentages) {
+                    const parsedPercentages = JSON.parse(savedPercentages)
+                    if (Array.isArray(parsedPercentages) && parsedPercentages.every(n => typeof n === 'number')) {
+                        setPercentageValues(parsedPercentages)
+                    }
+                } else {
+                    // Only set default values if no saved values exist
+                    setPercentageValues([25, 50, 75, 100])
+                }
+
+                if (savedAmounts) {
+                    const parsedAmounts = JSON.parse(savedAmounts)
+                    if (Array.isArray(parsedAmounts) && parsedAmounts.every(n => typeof n === 'number')) {
+                        setAmountValues(parsedAmounts)
+                    }
+                } else {
+                    // Only set default values if no saved values exist
+                    setAmountValues([0.1, 0.5, 1, 2])
+                }
+
+                setIsInitialized(true)
+            }
+        } catch (error) {
+            console.error('Error loading from localStorage:', error)
+            // Set default values in case of error
+            setPercentageValues([25, 50, 75, 100])
+            setAmountValues([0.1, 0.5, 1, 2])
+            setIsInitialized(true)
         }
     }, [])
 
     // Save values to Local Storage whenever they change
     useEffect(() => {
-        localStorage.setItem('tradingPercentageValues', JSON.stringify(percentageValues))
-    }, [percentageValues])
+        if (!isInitialized) return; // Don't save during initial load
+
+        try {
+            if (typeof window !== 'undefined') {
+                console.log('Saving percentage values to localStorage:', percentageValues)
+                localStorage.setItem('tradingPercentageValues', JSON.stringify(percentageValues))
+            }
+        } catch (error) {
+            console.error('Error saving percentage values to localStorage:', error)
+        }
+    }, [percentageValues, isInitialized])
 
     useEffect(() => {
-        localStorage.setItem('tradingAmountValues', JSON.stringify(amountValues))
-    }, [amountValues])
+        if (!isInitialized) return; // Don't save during initial load
+
+        try {
+            if (typeof window !== 'undefined') {
+                console.log('Saving amount values to localStorage:', amountValues)
+                localStorage.setItem('tradingAmountValues', JSON.stringify(amountValues))
+            }
+        } catch (error) {
+            console.error('Error saving amount values to localStorage:', error)
+        }
+    }, [amountValues, isInitialized])
 
     useEffect(() => {
         // Cập nhật giá trị USD khi amount thay đổi
@@ -122,6 +169,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             newValues[index] = newValue
             // Sort values in ascending order
             newValues.sort((a, b) => a - b)
+            console.log('Saving new percentage values:', newValues)
             setPercentageValues(newValues)
         }
         setEditingIndex(null)
@@ -147,6 +195,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             newValues[index] = newValue
             // Sort values in ascending order
             newValues.sort((a, b) => a - b)
+            console.log('Saving new amount values:', newValues)
             setAmountValues(newValues)
         }
         setEditingAmountIndex(null)
@@ -163,15 +212,15 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
     return (
         <div className="rounded-lg flex flex-col justify-between gap-3 h-full overflow-y-auto">
             {/* BUY/SELL Toggle */}
-            <div className="flex h-[30px] bg-neutral-1000 rounded-xl">
+            <div className="flex h-[30px] bg-gray-100 dark:bg-theme-neutral-1000 rounded-xl">
                 <button
-                    className={`flex-1 rounded-3xl text-sm cursor-pointer uppercase text-center ${mode === "buy" ? "border-green-default text-theme-green-200 border-1 bg-theme-green-100 font-semibold" : "text-neutral-400"}`}
+                    className={`flex-1 rounded-3xl text-sm cursor-pointer uppercase text-center ${mode === "buy" ? "border-green-500 text-green-600 dark:text-theme-green-200 border-1 bg-green-50 dark:bg-theme-green-100 font-semibold" : "text-gray-500 dark:text-neutral-400"}`}
                     onClick={() => setMode("buy")}
                 >
                     Buy
                 </button>
                 <button
-                    className={`flex-1 rounded-3xl cursor-pointer text-sm uppercase text-center ${mode === "sell" ? "border-green-default text-theme-red-100 border-1 font-semibold bg-theme-red-200" : "text-neutral-400"}`}
+                    className={`flex-1 rounded-3xl cursor-pointer text-sm uppercase text-center ${mode === "sell" ? "border-red-500 text-red-600 dark:text-theme-red-100 border-1 bg-red-50 dark:bg-theme-red-200 font-semibold" : "text-gray-500 dark:text-neutral-400"}`}
                     onClick={() => setMode("sell")}
                 >
                     Sell
@@ -180,15 +229,15 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
 
             {/* Amount Input */}
             <div className="relative mt-2">
-                <div className="bg-neutral-900 rounded-full border border-blue-500 px-3 py-2 flex justify-between items-center">
+                <div className="bg-gray-50 dark:bg-neutral-900 rounded-full border border-blue-200 dark:border-blue-500 px-3 py-2 flex justify-between items-center">
                     <input
                         type="number"
                         value={amount}
                         onChange={handleAmountChange}
-                        className="bg-transparent w-full text-neutral-200 font-medium text-base focus:outline-none"
+                        className="bg-transparent w-full text-gray-900 dark:text-neutral-200 font-medium text-base focus:outline-none"
                     />
                     {!isDirectAmountInput && (
-                        <span className={`${styleTextBase} text-theme-primary-300`}>{percentage.toFixed(2)}%</span>
+                        <span className={`${styleTextBase} text-blue-600 dark:text-theme-primary-300`}>{percentage.toFixed(2)}%</span>
                     )}
                 </div>
             </div>
@@ -208,20 +257,18 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                     <div>
                         <div className="flex justify-between mb-1">
                             <span className={styleTextBase}>Percentage</span>
-                            <span className={styleTextBase + " text-theme-primary-300"}>{percentage.toFixed(2)}%</span>
+                            <span className={`${styleTextBase} text-blue-600 dark:text-theme-primary-300`}>{percentage.toFixed(2)}%</span>
                         </div>
                         <input
                             type="range"
                             min="1"
                             max="100"
                             value={percentage}
-                            className="slider w-full"
+                            className="slider w-full accent-blue-500 dark:accent-theme-primary-400"
                             onChange={handlePercentageChange}
                             id="myRange"
                         />
                     </div>
-
-
                 </>
             )}
             {/* Percentage Buttons */}
@@ -229,20 +276,20 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                 {percentageValues.map((percent, index) => (
                     <div key={index} className="relative w-full">
                         {editingIndex === index ? (
-                            <div className="flex items-center gap-1 bg-neutral-700 rounded-md">
+                            <div className="flex items-center gap-1 bg-gray-100 dark:bg-neutral-700 rounded-md">
                                 <input
                                     type="number"
                                     value={editValue}
                                     onChange={(e) => setEditValue(e.target.value)}
                                     onKeyDown={(e) => handleEditKeyPress(e, index)}
-                                    className="w-full bg-transparent text-neutral-200 px-2 py-2 rounded-md focus:outline-none"
+                                    className="w-full bg-transparent text-gray-900 dark:text-neutral-200 px-2 py-2 rounded-md focus:outline-none"
                                     min="1"
                                     max="100"
                                     autoFocus
                                 />
                                 <button
                                     onClick={() => handleEditSave(index)}
-                                    className="p-1 hover:text-theme-primary-300"
+                                    className="p-1 text-blue-600 hover:text-blue-700 dark:text-theme-primary-300 dark:hover:text-theme-primary-400"
                                 >
                                     <Check className="w-4 h-4" />
                                 </button>
@@ -250,13 +297,22 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                         ) : (
                             <button
                                 onClick={() => handleSetPercentage(percent)}
-                                className={`w-full px-2 py-1 h-[30px] font-semibold rounded-md flex items-center justify-between gap-1 border border-solid text-xs ${percentage === percent
-                                    ? "border-linear-start text-linear-200"
-                                    : "border-neutral-200 text-neutral-100"
-                                    }`}
+                                className={`w-full px-2 py-1 h-[30px] font-semibold rounded-md flex items-center justify-between gap-1 border border-solid text-xs transition-colors ${
+                                    percentage === percent
+                                        ? "border-blue-500 text-blue-600 dark:border-linear-start bg-blue-50 dark:bg-theme-primary-400/10"
+                                        : "border-gray-200 dark:border-neutral-700 text-gray-700 dark:text-neutral-300 hover:bg-gray-50 dark:hover:bg-neutral-800"
+                                }`}
                             >
                                 {percent}%
-                                <Image src={pencil} alt="pencil" />
+                                <Image 
+                                    src={pencil} 
+                                    alt="pencil" 
+                                    className="cursor-pointer hover:opacity-80 dark:invert"
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleEditClick(index)
+                                    }}
+                                />
                             </button>
                         )}
                     </div>
@@ -265,25 +321,25 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             {/* Quick Amount Buttons */}
             {mode == "buy" && (
                 <>
-                    <span className="text-neutral-200 text-sm font-normal">{currency.symbol}</span>
+                    <span className={styleTextBase}>{currency.symbol}</span>
                     <div className="flex items-center justify-between gap-3">
                         {amountValues.map((value, index) => (
                             <div key={index} className="relative w-full">
                                 {editingAmountIndex === index ? (
-                                    <div className="flex items-center gap-1 bg-neutral-700 rounded-md">
+                                    <div className="flex items-center gap-1 bg-gray-100 dark:bg-neutral-700 rounded-md">
                                         <input
                                             type="number"
                                             value={editAmountValue}
                                             onChange={(e) => setEditAmountValue(e.target.value)}
                                             onKeyDown={(e) => handleAmountEditKeyPress(e, index)}
-                                            className="w-full bg-transparent text-neutral-200 px-2 py-1 rounded-md focus:outline-none text-xs"
+                                            className="w-full bg-transparent text-gray-900 dark:text-neutral-200 px-2 py-1 rounded-md focus:outline-none text-xs"
                                             min="0.000001"
                                             step="0.000001"
                                             autoFocus
                                         />
                                         <button
                                             onClick={() => handleAmountEditSave(index)}
-                                            className="p-1 hover:text-theme-primary-300"
+                                            className="p-1 text-blue-600 hover:text-blue-700 dark:text-theme-primary-300 dark:hover:text-theme-primary-400"
                                         >
                                             <Check className="w-4 h-4" />
                                         </button>
@@ -291,13 +347,13 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                                 ) : (
                                     <button
                                         onClick={() => handleSetAmount(value)}
-                                        className="px-1 w-full h-[30px] rounded-md flex items-center justify-between gap-1 border border-solid border-neutral-200 text-xs font-semibold text-neutral-100"
+                                        className="px-1 w-full h-[30px] rounded-md flex items-center justify-between gap-1 border border-solid border-gray-200 dark:border-neutral-700 text-xs font-semibold text-gray-700 dark:text-neutral-300 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
                                     >
                                         {value}
                                         <Image
                                             src={pencil}
                                             alt="pencil"
-                                            className="cursor-pointer hover:opacity-80"
+                                            className="cursor-pointer hover:opacity-80 dark:invert"
                                             onClick={(e) => {
                                                 e.stopPropagation()
                                                 handleAmountEditClick(index)
@@ -313,12 +369,12 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             {/* Select Groups Dropdown */}
             <div className="relative mt-3">
                 <Select>
-                    <SelectTrigger className="bg-neutral-900 w-full py-2 px-4 rounded-full flex items-center justify-between text-neutral-400 border border-theme-neutral-900">
+                    <SelectTrigger className="bg-gray-50 dark:bg-neutral-900 w-full py-2 px-4 rounded-full flex items-center justify-between text-gray-500 dark:text-neutral-400 border border-gray-200 dark:border-theme-neutral-900">
                         <SelectValue placeholder="Select groups..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-neutral-900 box-shadow-info rounded-xl z-10">
-                        <SelectItem className="text-neutral-400 cursor-pointer bg-neutral-900" value="apple">axeinfinity</SelectItem>
-                        <SelectItem className="text-neutral-400 cursor-pointer bg-neutral-900" value="banana">Liquidity</SelectItem>
+                    <SelectContent className="bg-white dark:bg-neutral-900 box-shadow-info rounded-xl z-10">
+                        <SelectItem className="text-gray-700 dark:text-neutral-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800" value="apple">axeinfinity</SelectItem>
+                        <SelectItem className="text-gray-700 dark:text-neutral-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800" value="banana">Liquidity</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -326,8 +382,11 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             {/* Action Button */}
             <div className="mt-3">
                 <button
-                    className={`w-full py-2 rounded-full text-white font-semibold text-sm ${mode === "buy" ? "bg-theme-green-200 hover:bg-theme-green-200/90" : "bg-theme-red-100 hover:bg-theme-red-100/90"
-                        }`}
+                    className={`w-full py-2 rounded-full text-white font-semibold text-sm transition-colors ${
+                        mode === "buy" 
+                            ? "bg-green-500 hover:bg-green-600 dark:bg-theme-green-200 dark:hover:bg-theme-green-200/90" 
+                            : "bg-red-500 hover:bg-red-600 dark:bg-theme-red-100 dark:hover:bg-theme-red-100/90"
+                    }`}
                 >
                     {mode === "buy" ? "BUY" : "SELL"}
                 </button>

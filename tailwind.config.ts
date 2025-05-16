@@ -39,6 +39,7 @@ const config: Config = {
             '100': '#eeeeee',
             '200': '#D7D7D7',
             '300': '#C0C0C0',
+            '800': '#4C4C4C',
             '900': '#353535',
             '1000': '#1E1E1E',
             '2000': '#112D60',
@@ -185,6 +186,9 @@ const config: Config = {
           borderRadius: '24px',
           fontSize: '0.875rem',
           fontWeight: '500',
+        },
+        '.linear-gradient-light': {
+          background: 'var(--Linear-blue, linear-gradient(0deg, #C3FFE8 0%, #F0FFF4 99.7%))',
         },
         '.text-linear-200': {
           color: theme('colors.theme.neutral.900'),
