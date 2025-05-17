@@ -107,18 +107,18 @@ export default function MasterTradeChat() {
           <div className="px-4 pb-2">
             <div className="relative">
               <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none ">
-                <Search className="h-4 w-4 text-gray-400" />
+                <Search className="h-3 w-3 text-gray-400" />
               </div>
               <input
                 type="text"
                 placeholder="Master trade"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-2 pl-10 pr-4 bg-[#1a1a1a] rounded-full border border-t-theme-primary-300 border-l-theme-primary-300 border-b-theme-neutral-900 border-r-theme-neutral-900 focus:outline-none  focus:border-purple-500 text-sm text-neutral-200 font-normal"
-
+                className="w-full py-2 pl-10 max-h-6 text-xs pr-4 bg-[#1a1a1a] rounded-full  focus:outline-none border-1 border-t-theme-primary-300 border-l-theme-primary-300 border-b-theme-secondary-400 border-r-theme-secondary-400 text-neutral-200 font-normal"
               />
             </div>
           </div>
+         
 
           {/* List */}
           <div className="flex-1 overflow-y-auto px-4">

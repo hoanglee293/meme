@@ -10,7 +10,7 @@ const ListToken = () => {
     return (
         <div className='bg-neutral-1000 box-shadow-info rounded-xl p-3 pr-0 pb-0 h-[69%] overflow-hidden'>
             <div className="relative mb-4 pr-3">
-                <div className="flex relative items-center bg-neutral-800 rounded-full px-3 py-1 border-linear-200">
+                <div className="flex relative items-center bg-neutral-800 rounded-full px-3 py-1 border-1 border-t-theme-primary-300 border-l-theme-primary-300 border-b-theme-secondary-400 border-r-theme-secondary-400">
                     <input
                         type="text"
                         placeholder="Token Name / Address"

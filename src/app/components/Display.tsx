@@ -30,7 +30,7 @@ export default function Display() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
-                    className='w-max px-4 py-3 bg-white dark:bg-theme-neutral-1000 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg transition-colors' 
+                    className='w-max px-2 py-2 bg-white dark:bg-theme-neutral-1000 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg transition-colors' 
                     align="end" 
                     style={{ width: '200px' }}
                 >

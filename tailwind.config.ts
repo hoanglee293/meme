@@ -50,7 +50,8 @@ const config: Config = {
             },
           'red': {
               '100': '#FB3748',
-              '200': '#fb37481a',
+              '200': '#D00416',
+              '300': '#fb37481a',
             },
           'gradient': {
             'start': '#15DFFD',
@@ -58,6 +59,7 @@ const config: Config = {
             'linear': {
               'start': '#5558FF',
               'end': '#00C0FF',
+              'apha': "#83E"
             },
             'overlay': {
               'start': 'rgba(17, 45, 96, 0.50)',
@@ -153,10 +155,16 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0px" },
         },
+        "background-delay": {
+          "0%": { opacity: "1" },
+          "50%": { opacity: "0" },
+          "100%": { opacity: "1" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "background-delay": "background-delay 0.5s ease-in-out forwards",
       },
       boxShadow: {
         'custom': '0px 0px 4px 0px rgba(232, 232, 232, 0.50)',
@@ -222,11 +230,25 @@ const config: Config = {
         '.linear-gradient-200': {
           background: `linear-gradient(0deg, ${theme('colors.theme.gradient.linear.start')} 0%, ${theme('colors.theme.gradient.linear.end')} 100%)`,
         },
+        '.create-coin-bg': {
+          background: `linear-gradient(0deg, ${theme('colors.theme.primary.500')} 0%, ${theme('colors.theme.gradient.linear.apha')} 100%)`,
+        },
         '.linear-200-bg': {
           background: 'var(--Linear-200, linear-gradient(0deg, #5558FF 0%, #00C0FF 100%))',
         },
         '.linear-gradient-blue': {
           background: 'linear-gradient(0deg, #5558FF 0%, #00C0FF 100%)',
+        },
+        '.hover-bg-delay': {
+          '&:hover': {
+            animation: 'background-delay 0.5s ease-in-out forwards',
+            transition: 'all 0.5s ease-in-out',
+          }
+        },
+        '.bg-gradient-delay': {
+          background: `linear-gradient(90deg, ${theme('colors.theme.primary.500')} 0%, ${theme('colors.theme.gradient.linear.apha')} 50%, ${theme('colors.theme.primary.500')} 100%)`,
+          backgroundSize: '200% 100%',
+          backgroundPosition: '0% 0%',
         },
       })
     }),

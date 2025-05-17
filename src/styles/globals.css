@@ -189,6 +189,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -217,12 +218,13 @@ body {
   @apply hover:bg-[hsl(var(--dropdown-hover))];
 }
 
-.clip-text:hover{
+.clip-text:hover {
   background: var(--Linear-200, linear-gradient(0deg, #5558FF 0%, #00C0FF 100%));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -233,3 +235,45 @@ input[type=number] {
   appearance: textfield;
   -moz-appearance: textfield;
 }
+
+/* hard code */
+.border-create-coin {
+  border-radius: 12px;
+  border-top: 5px solid var(--Linear-300, #63EAFE);
+  border-right: 1px solid var(--Linear-300, #6a259c);
+  border-bottom: 1px solid var(--Linear-300, #6a259c);
+  border-left: 1px solid var(--Linear-300, #63EAFE);
+  background: rgba(0, 0, 0, 0.50);
+  box-shadow: 0px 0px 4px 0px rgba(232, 232, 232, 0.50);
+  backdrop-filter: blur(6px);
+}
+
+.border-my-coin {
+  border-radius: 12px;
+  border-top: 5px solid var(--Linear-Tm, #883bbf);
+  border-right: 1px solid var(--Linear-Tm, #883bbf);
+  border-bottom: 1px solid var(--Linear-Tm, #883bbf);
+  border-left: 1px solid var(--Linear-Tm, #883bbf);
+  background: rgba(0, 0, 0, 0.50);
+}
+
+
+.module-border-wrap {
+  position: relative;
+  background: linear-gradient(to right, #63EAFE, #6a259c);
+  padding: 4px 2px;
+  border-radius: 12px;
+}
+
+.module {
+  background: #222;
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+}
+.bg-gradient-guide {
+  background: linear-gradient(0deg, rgba(136, 51, 238, 0.60) 1.84%, rgba(0, 0, 0, 0.50) 43.34%);
+
+}
+
+  

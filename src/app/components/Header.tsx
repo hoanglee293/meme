@@ -76,10 +76,10 @@ const Header = () => {
             name: t('overview'),
             href: '/dashboard'
         },
-        {
-            name: t('trade'),
-            href: '/trading'
-        },
+        // {
+        //     name: t('trade'),
+        //     href: '/trading'
+        // },
         {
             name: t('createCoin'),
             href: '/create-coin'
@@ -103,7 +103,7 @@ const Header = () => {
                             <Link
                                 href={item.href}
                                 key={index}
-                                className={`hover:gradient-hover text-theme-neutral-800 dark:text-theme-neutral-300 transition-colors  ${pathname === item.href ? 'gradient-hover' : ''}`}
+                                className={`hover:gradient-hover text-theme-neutral-800 dark:text-theme-neutral-300 transition-colors  ${pathname === item.href ? 'gradient-hover font-semibold' : ''}`}
                             >
                                 {item.name}
                             </Link>
@@ -120,7 +120,7 @@ const Header = () => {
                         <input
                             type="text"
                             placeholder={t('searchPlaceholder')}
-                            className="rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:outline-none bg-gray-100 dark:bg-black text-gray-900 dark:text-neutral-200 focus:ring-1 focus:ring-blue-500 dark:focus:ring-[hsl(var(--ring))] max-h-[30px] border border-gray-200 dark:border-theme-neutral-900 placeholder:text-gray-500 dark:placeholder:text-neutral-400"
+                            className="rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:outline-none bg-gray-100 dark:bg-black text-gray-900 dark:text-neutral-200 focus:ring-1 focus:ring-blue-500 dark:focus:ring-[hsl(var(--ring))] max-h-[30px] border border-gray-200 dark:border-t-theme-primary-300 dark:border-l-theme-primary-300 dark:border-b-theme-secondary-400 dark:border-r-theme-secondary-400 placeholder:text-gray-500 dark:placeholder:text-neutral-400"
                         />
                         <Search className="absolute left-3 top-2 h-4 w-4 text-gray-500 dark:text-muted-foreground" />
                     </div>
