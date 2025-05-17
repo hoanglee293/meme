@@ -261,7 +261,7 @@ export default function CreateCoinForm() {
                                         placeholder="Enter coin name"
                                         className={classInput}
                                     />
-                                    {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+                                    {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
                                 </div>
 
                                 {/* Symbol */}
@@ -278,7 +278,7 @@ export default function CreateCoinForm() {
                                         placeholder="Enter coin symbol"
                                         className={classInput}
                                     />
-                                    {errors.symbol && <p className="mt-1 text-sm text-red-500">{errors.symbol}</p>}
+                                    {errors.symbol && <p className="mt-1 text-xs text-red-500">{errors.symbol}</p>}
                                 </div>
                             </div>
                             <div className="flex justify-between gap-6">
@@ -310,7 +310,7 @@ export default function CreateCoinForm() {
                                             </button>
                                         )}
                                     </div>
-                                    {errors.amount && <p className="mt-1 text-sm text-red-500">{errors.amount}</p>}
+                                    {errors.amount && <p className="mt-1 text-xs text-red-500">{errors.amount}</p>}
                                 </div>
 
                                 {/* Categories */}
@@ -330,7 +330,7 @@ export default function CreateCoinForm() {
                                             </SelectContent>
                                         </Select>
                                     </div>
-                                    {errors.category && <p className="mt-1 text-sm text-red-500">{errors.category}</p>}
+                                    {errors.category && <p className="mt-1 text-xs text-red-500">{errors.category}</p>}
                                 </div>
                             </div>
 
@@ -349,7 +349,7 @@ export default function CreateCoinForm() {
                                     cols={5}
                                     className={classInput}
                                 />
-                                {errors.description && <p className="mt-1 text-sm text-red-500">{errors.description}</p>}
+                                {errors.description && <p className="mt-1 text-xs text-red-500">{errors.description}</p>}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -399,7 +399,7 @@ export default function CreateCoinForm() {
                                         placeholder="Enter coin website"
                                         className={classInput}
                                     />
-                                    {errors.website && <p className="mt-1 text-sm text-red-500">{errors.website}</p>}
+                                    {errors.website && <p className="mt-1 text-xs text-red-500">{errors.website}</p>}
                                 </div>
                             </div>
                             <div className="flex gap-4 w-full">
@@ -440,7 +440,7 @@ export default function CreateCoinForm() {
                                             </div>
                                         )}
                                     </div>
-                                    {errors.logo && <p className="mt-1 text-sm text-red-500">{errors.logo}</p>}
+                                    {errors.logo && <p className="mt-1 text-xs text-red-500">{errors.logo}</p>}
                                 </div>
                                 {/* Preview */}
                                 <div className="w-1/2">

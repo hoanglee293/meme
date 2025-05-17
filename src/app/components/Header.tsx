@@ -23,6 +23,8 @@ import { formatNumberWithSuffix3, truncateString } from '@/utils/format';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/ui/dialog';
 import { Badge } from '@/ui/badge';
 import { CheckCircle } from 'lucide-react';
+import ListWallet from './list-wallet';
+import type { Wallet } from './list-wallet';
 
 const Header = () => {
     const { t } = useLang();
@@ -44,9 +46,9 @@ const Header = () => {
     const [mounted, setMounted] = useState(false);
     const [isWalletDialogOpen, setIsWalletDialogOpen] = useState(false);
 
-    const handleChangeWallet = async (walletId: string) => {
+    const handleChangeWallet = async (wallet: Wallet) => {
         try {
-            const res = await useWallet({ wallet_id: walletId });
+            const res = await useWallet({ wallet_id: wallet.wallet_id });
             updateToken(res.token);
             await refetch();
             router.refresh();
@@ -168,47 +170,7 @@ const Header = () => {
                     }
                     <Dialog open={isWalletDialogOpen} onOpenChange={setIsWalletDialogOpen}>
                         <DialogContent className="sm:max-w-[425px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800">
-                            <DialogHeader>
-                                <DialogTitle className="text-base font-bold text-gray-900 dark:text-neutral-200">
-                                    <input
-                                        type="text"
-                                        placeholder={'Wallet Name / Address'}
-                                        className="rounded-full py-2 pl-10 pr-4 w-64 text-gray-900 dark:text-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-[hsl(var(--ring))] max-h-[30px] border border-gray-200 dark:border-linear-tm bg-gray-50 dark:bg-neutral-800 placeholder:text-gray-500 dark:placeholder:text-neutral-400"
-                                    />
-                                    <Search className="absolute left-6 top-4.5 h-4 w-4 text-gray-500 dark:text-muted-foreground" />
-                                </DialogTitle>
-                            </DialogHeader>
-                            <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-600">
-                                {myWallets?.map((wallet: { wallet_id: string; wallet_name: string; solana_address: string; wallet_type: string; wallet_auth: string }) => (
-                                    <div
-                                        key={wallet.wallet_id}
-                                        className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-800/50 cursor-pointer transition-colors"
-                                        onClick={() => {
-                                            handleChangeWallet(wallet.wallet_id);
-                                            setIsWalletDialogOpen(false);
-                                        }}
-                                    >
-                                        <div className="flex flex-col gap-1">
-                                            <div className="flex items-center gap-2">
-                                                <Wallet2 className="h-4 w-4 text-gray-700 dark:text-neutral-300" />
-                                                <span className="font-semibold text-gray-900 dark:text-neutral-200">{wallet.wallet_name}</span>
-                                                <Badge variant="outline" className="ml-2 border-gray-200 dark:border-neutral-700 text-gray-700 dark:text-neutral-300">
-                                                    {wallet.wallet_type?.toLowerCase()}
-                                                </Badge>
-                                                <Badge variant="outline" className="bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800">
-                                                    {wallet.wallet_auth?.toLowerCase()}
-                                                </Badge>
-                                            </div>
-                                            <div className="text-sm text-gray-500 dark:text-neutral-400">
-                                                {truncateString(wallet.solana_address, 20)}
-                                            </div>
-                                        </div>
-                                        {walletInfor?.solana_address === wallet.solana_address && (
-                                            <CheckCircle className="h-4 w-4 text-green-500" />
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
+                            <ListWallet isOpen={isWalletDialogOpen} onClose={() => setIsWalletDialogOpen(false)} onSelectWallet={handleChangeWallet} selectedWalletId={walletInfor?.solana_address} />
                         </DialogContent>
                     </Dialog>
                 </div>
