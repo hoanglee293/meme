@@ -9,11 +9,11 @@ import Slider from './slider/page'
 
 const TradingPage = () => {
   return (
-    <div className='h-[93vh] flex flex-col gap-4 container-trading px-[40px] py-4 relative z-10 overflow-hidden'>
+    <div className='h-[91vh] flex flex-col gap-4 container-trading px-[10px] py-4 relative z-10 '>
       <Interface />
       <div className='flex-1 flex gap-4 w-full relative z-10 overflow-hidden'>
         {/* Left Column */}
-        <div className='flex flex-col gap-4 w-1/6 overflow-hidden'>
+        <div className='flex flex-col gap-4 w-1/5 overflow-hidde'>
           <TokenInfo />
           <ListToken />
         </div>
@@ -29,7 +29,7 @@ const TradingPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className='w-1/6 flex flex-col gap-4 overflow-hidden'>
+        <div className='w-1/5 flex flex-col gap-4'>
           <Control />
           <MasterTradeChat />
         </div>

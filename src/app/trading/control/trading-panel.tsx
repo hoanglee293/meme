@@ -210,7 +210,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
     }
 
     return (
-        <div className="rounded-lg flex flex-col justify-between gap-3 h-full overflow-y-auto">
+        <div className="rounded-lg flex flex-col 2xl:justify-between gap-3 h-full overflow-y-auto">
             {/* BUY/SELL Toggle */}
             <div className="flex h-[30px] bg-gray-100 dark:bg-theme-neutral-1000 rounded-xl">
                 <button
@@ -272,7 +272,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
                 </>
             )}
             {/* Percentage Buttons */}
-            <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex items-center justify-between gap-3">
                 {percentageValues.map((percent, index) => (
                     <div key={index} className="relative w-full">
                         {editingIndex === index ? (
