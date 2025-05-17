@@ -6,15 +6,33 @@ import TransactionHistory from './transaction-history/page'
 import Control from './control/page'
 import MasterTradeChat from './control/master-trade'
 import Slider from './slider/page'
+import { useState, useEffect } from 'react'
 
 const TradingPage = () => {
- 
+  const [isMounted, setIsMounted] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(800); // Default height
+
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowHeight(window.innerHeight);
+    
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Use default height during SSR
+  const height = isMounted ? windowHeight : 800;
+
   return (
-    <div className={`h-[93.5vh] flex flex-col gap-4 container-trading py-4 relative z-10 ${window.innerHeight > 700 ? 'px-[40px]' : 'px-[10px]'}`}>
+    <div className={`h-[93.5vh] flex flex-col gap-4 container-trading py-4 relative z-10 ${height > 700 ? 'px-[40px]' : 'px-[10px]'}`}>
       <Interface />
       <div className='flex-1 flex gap-4 w-full relative z-10 overflow-hidden'>
         {/* Left Column */}
-        <div className={`flex flex-col gap-4 w-1/5 overflow-hidde ${window.innerHeight > 700 ? 'w-1/6' : 'w-1/5'}`}>
+        <div className={`flex flex-col gap-4 w-1/5 overflow-hidde ${height > 700 ? 'w-1/6' : 'w-1/5'}`}>
           <TokenInfo />
           <ListToken />
         </div>
@@ -30,7 +48,7 @@ const TradingPage = () => {
         </div>
 
         {/* Right Column */}
-        <div className={`w-1/5 flex flex-col gap-4 ${window.innerHeight > 700 ? 'w-1/6' : 'w-1/5'}`}>
+        <div className={`w-1/5 flex flex-col gap-4 ${height > 700 ? 'w-1/6' : 'w-1/5'}`}>
           <Control />
           <MasterTradeChat />
         </div>

@@ -119,7 +119,7 @@ export default function TokenInfo() {
         </div>
 
       </div>
-      <div className="bg-neutral-1000 box-shadow-info rounded-xl p-3 h-full flex gap-3 flex-col xl:min-w-[328px]">
+      <div className="bg-neutral-1000 box-shadow-info rounded-xl p-3 h-full flex gap-3 flex-col ">
         <div className="grid grid-cols-4 gap-2 ">
           <button onClick={() => setTimeFrame("5m")} className={`flex flex-col gap-1 cursor-pointer rounded-lg p-2 text-center border-1 border-solid  ${timeFrame === "5m" ? "border-green-400" : "box-shadow-info"}`}>
             <div className="text-xs">5m</div>

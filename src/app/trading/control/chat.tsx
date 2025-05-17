@@ -20,6 +20,8 @@ type Message = {
 }
 
 const ChatTrading = () => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(800); // Default height
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -58,6 +60,21 @@ const ChatTrading = () => {
   const [showIconPicker, setShowIconPicker] = useState(false)
   const emojiPickerRef = useRef<HTMLDivElement>(null)
   const iconPickerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowHeight(window.innerHeight);
+    
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Use default height during SSR
+  const height = isMounted ? windowHeight : 800;
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -116,7 +133,7 @@ const ChatTrading = () => {
   
   return (
     <div className="flex flex-col h-full bg-gray-50 dark:bg-theme-neutral-1000">
-      <div className={`${window.innerHeight > 700 ? 'flex-1' : 'h-[300px]'} overflow-y-auto p-2 space-y-4`}>
+      <div className={`${height > 700 ? 'flex-1' : 'h-[300px]'} overflow-y-auto p-2 space-y-4`}>
         {messages.map((message) => (
           <div key={message.id} className={`flex ${message.sender.isCurrentUser ? "justify-end" : "items-start"}`}>
             {!message.sender.isCurrentUser && (

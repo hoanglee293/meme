@@ -37,6 +37,8 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
     const [editingAmountIndex, setEditingAmountIndex] = useState<number | null>(null)
     const [editAmountValue, setEditAmountValue] = useState<string>("")
     const [isDirectAmountInput, setIsDirectAmountInput] = useState(false)
+    const [isMounted, setIsMounted] = useState(false);
+    const [windowHeight, setWindowHeight] = useState(800); // Default height
 
     // Giả lập tỷ giá đổi từ crypto sang USD
     const exchangeRate = 20 // Giả sử 1 crypto = 20 USD
@@ -113,6 +115,21 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
         const numericAmount = Number.parseFloat(amount) || 0
         setAmountUSD((numericAmount * exchangeRate).toFixed(2))
     }, [amount, exchangeRate])
+
+    useEffect(() => {
+        setIsMounted(true);
+        setWindowHeight(window.innerHeight);
+        
+        const handleResize = () => {
+            setWindowHeight(window.innerHeight);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Use default height during SSR
+    const height = isMounted ? windowHeight : 800;
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newAmount = e.target.value
@@ -229,7 +246,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
 
             {/* Amount Input */}
             <div className="relative mt-2">
-                <div className={`bg-gray-50 dark:bg-neutral-900 rounded-full border border-blue-200 dark:border-blue-500 px-3 py-2 flex justify-between items-center ${window.innerHeight > 700 ? 'py-2' : 'h-[30px'}`}>
+                <div className={`bg-gray-50 dark:bg-neutral-900 rounded-full border border-blue-200 dark:border-blue-500 px-3 py-2 flex justify-between items-center ${height > 700 ? 'py-2' : 'h-[30px]'}`}>
                     <input
                         type="number"
                         value={amount}
