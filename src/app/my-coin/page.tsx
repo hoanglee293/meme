@@ -4,6 +4,20 @@ import { useState, useMemo } from "react"
 import { Copy, ArrowUpDown, ExternalLink, Search } from "lucide-react"
 import Image from "next/image"
 import ethereum from "@/assets/svgs/ethereum-icon.svg"
+import { CardContent } from "@/ui/card"
+import token from "@/assets/svgs/token.svg"
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/ui/table";
+import { Card } from "@/ui/card";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import convertIcon from "@/assets/svgs/convert-icon.svg"
+import { useRouter } from "next/navigation";
 
 type CoinData = {
     id: string
@@ -20,25 +34,95 @@ type SortField = "time" | "name" | "symbol" | "address" | "decimals"
 type SortDirection = "asc" | "desc"
 
 export default function MyCoinsTable() {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("")
     const [sortField, setSortField] = useState<SortField>("time")
     const [sortDirection, setSortDirection] = useState<SortDirection>("desc")
 
     // Sample data
     const coins: CoinData[] = useMemo(
-        () =>
-            Array(18)
-                .fill(null)
-                .map((_, index) => ({
-                    id: `coin-${index}`,
-                    time: "22:00",
-                    date: "12/05/2025",
-                    name: "The Sandbox",
-                    logo: "/sandbox-logo.png",
-                    symbol: "SAND",
-                    address: "T034JK....mnoqpr",
-                    decimals: 9,
-                })),
+        () => [
+            {
+                id: "coin-1",
+                time: "22:00",
+                date: "12/05/2025",
+                name: "The Sandbox",
+                logo: "/sandbox-logo.png",
+                symbol: "SAND",
+                address: "T034JK....mnoqpr",
+                decimals: 9,
+            },
+            {
+                id: "coin-2",
+                time: "15:30",
+                date: "11/05/2025",
+                name: "Axie Infinity",
+                logo: "/axie-logo.png",
+                symbol: "AXS",
+                address: "T045LM....rstuvw",
+                decimals: 18,
+            },
+            {
+                id: "coin-3",
+                time: "09:15",
+                date: "12/05/2025",
+                name: "Decentraland",
+                logo: "/mana-logo.png",
+                symbol: "MANA",
+                address: "T056NP....xyzabc",
+                decimals: 6,
+            },
+            {
+                id: "coin-4",
+                time: "18:45",
+                date: "10/05/2025",
+                name: "CryptoKitties",
+                logo: "/kitty-logo.png",
+                symbol: "KITTY",
+                address: "T067QR....defghi",
+                decimals: 8,
+            },
+            {
+                id: "coin-5",
+                time: "11:20",
+                date: "12/05/2025",
+                name: "Gods Unchained",
+                logo: "/gods-logo.png",
+                symbol: "GODS",
+                address: "T078ST....jklmno",
+                decimals: 12,
+            },
+            {
+                id: "coin-6",
+                time: "14:10",
+                date: "11/05/2025",
+                name: "Illuvium",
+                logo: "/ilv-logo.png",
+                symbol: "ILV",
+                address: "T089UV....pqrstu",
+                decimals: 10,
+            },
+            {
+                id: "coin-7",
+                time: "16:55",
+                date: "12/05/2025",
+                name: "Yield Guild Games",
+                logo: "/ygg-logo.png",
+                symbol: "YGG",
+                address: "T090WX....vwxyz",
+                decimals: 7,
+            },
+            {
+                id: "coin-8",
+                time: "10:05",
+                date: "10/05/2025",
+                name: "Gala Games",
+                logo: "/gala-logo.png",
+                symbol: "GALA",
+                address: "T101YZ....abcdef",
+                decimals: 15,
+            }
+        ],
         [],
     )
 
@@ -89,130 +173,161 @@ export default function MyCoinsTable() {
         })
     }, [coins, searchQuery, sortField, sortDirection])
 
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text)
-        // You could add a toast notification here
-    }
+    const copyToClipboard = async (text: string, e: React.MouseEvent) => {
+        e.stopPropagation(); // Prevent event bubbling
+        try {
+            await navigator.clipboard.writeText(text);
+            // You could add a toast notification here to show success
+            console.log('Copied to clipboard:', text);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
+
+    const renderSortIcon = (field: SortField) => {
+        return (
+            <div className="flex flex-col h-5">
+                <TiArrowSortedUp
+                    className={`${sortField === field && sortDirection === "asc" ? "text-blue-500" : "text-muted-foreground"}`}
+                />
+                <TiArrowSortedDown
+                    className={`-mt-1.5 ${sortField === field && sortDirection === "desc" ? "text-blue-500" : "text-muted-foreground"}`}
+                />
+            </div>
+        );
+    };
+
+    const handleCreateCoin = () => {
+        router.push('/create-coin');
+    };
 
     return (
         <div className="container-body px-[40px] flex flex-col pt-[30px] relative mx-auto z-10">
-             <div className="p-4 flex items-center justify-between">
-                    <div className="flex items-center">
-                        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                            <Image src={ethereum} alt="logo" width={24} height={24} />
-                            MY COINS
-                            <Image src={ethereum} alt="logo" width={24} height={24} />
-                            <span className="ml-2 text-gray-400 text-sm">(40)</span>
-                        </h2>
+            <div className="pb-6 flex items-center justify-between">
+                <div className="flex w-full items-center justify-center gap-4">
+                    <h2 className="text-xl font-bold text-black dark:text-neutral-100 flex items-center gap-2 flex-1">
+                        <Image src={ethereum} alt="logo" width={24} height={24} />
+                        MY COINS
+                        <Image src={ethereum} alt="logo" width={24} height={24} />
+                        <span className="ml-2 text-neutral-400 dark:text-neutral-400 text-sm">(40)</span>
+                    </h2>
+
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 dark:text-neutral-400 w-4 h-4" />
+                        <input
+                            type="text"
+                            placeholder="Token Name/ Address"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:outline-none bg-gray-100 dark:bg-black text-gray-900 dark:text-neutral-200 focus:ring-1 focus:ring-blue-500 dark:focus:ring-[hsl(var(--ring))] max-h-[30px] border border-gray-200 dark:border-t-theme-primary-300 dark:border-l-theme-primary-300 dark:border-b-theme-secondary-400 dark:border-r-theme-secondary-400 placeholder:text-gray-500 dark:placeholder:text-neutral-400"
+                        />
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                            <input
-                                type="text"
-                                placeholder="Token Name/ Address"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="bg-black bg-opacity-60 rounded-full pl-10 pr-4 py-2 text-sm w-64 border border-blue-500/30 focus:outline-none focus:border-blue-500 text-white"
-                            />
-                        </div>
-
-                        <button className="bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200">
-                            CREATE COIN
-                        </button>
-                    </div>
-                </div>
-            <div className="w-full bg-black bg-opacity-30 backdrop-blur-sm rounded-xl border border-blue-500/30 overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-white">
-                        <thead>
-                            <tr className="border-b border-blue-500/30 text-gray-400 text-sm">
-                                <th className="px-4 py-3 text-left">
-                                    <button
-                                        onClick={() => handleSort("time")}
-                                        className="flex items-center hover:text-white transition-colors"
-                                    >
-                                        Time
-                                        <ArrowUpDown className="ml-1 h-4 w-4" />
-                                    </button>
-                                </th>
-                                <th className="px-4 py-3 text-left">
-                                    <button
-                                        onClick={() => handleSort("name")}
-                                        className="flex items-center hover:text-white transition-colors"
-                                    >
-                                        Meme coin
-                                        <ArrowUpDown className="ml-1 h-4 w-4" />
-                                    </button>
-                                </th>
-                                <th className="px-4 py-3 text-left">
-                                    <button
-                                        onClick={() => handleSort("symbol")}
-                                        className="flex items-center hover:text-white transition-colors"
-                                    >
-                                        Symbol
-                                        <ArrowUpDown className="ml-1 h-4 w-4" />
-                                    </button>
-                                </th>
-                                <th className="px-4 py-3 text-left">Address</th>
-                                <th className="px-4 py-3 text-left">
-                                    <button
-                                        onClick={() => handleSort("decimals")}
-                                        className="flex items-center hover:text-white transition-colors"
-                                    >
-                                        Decimals
-                                        <ArrowUpDown className="ml-1 h-4 w-4" />
-                                    </button>
-                                </th>
-                                <th className="px-4 py-3 text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sortedAndFilteredCoins.map((coin) => (
-                                <tr key={coin.id} className="border-b border-blue-500/10 hover:bg-blue-900/10 transition-colors">
-                                    <td className="px-4 py-3 whitespace-nowrap">
-                                        <div>{coin.time}</div>
-                                        <div className="text-gray-400 text-xs">{coin.date}</div>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <div className="flex items-center">
-                                            <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 mr-3 flex-shrink-0">
-                                                <Image
-                                                    src={coin.logo || "/placeholder.svg"}
-                                                    alt={coin.name}
-                                                    width={32}
-                                                    height={32}
-                                                    className="object-cover"
-                                                />
-                                            </div>
-                                            <span>{coin.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-3">{coin.symbol}</td>
-                                    <td className="px-4 py-3">
-                                        <div className="flex items-center">
-                                            <span>{coin.address}</span>
-                                            <button
-                                                onClick={() => copyToClipboard(coin.address)}
-                                                className="ml-2 text-gray-400 hover:text-white transition-colors"
-                                            >
-                                                <Copy className="h-4 w-4" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-3">{coin.decimals}</td>
-                                    <td className="px-4 py-3 text-center">
-                                        <button className="text-gray-400 hover:text-white transition-colors">
-                                            <ExternalLink className="h-5 w-5" />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <button
+                        onClick={handleCreateCoin}
+                        className="linear-gradient-light dark:create-coin-bg hover:linear-200-bg hover-bg-delay text-black dark:text-neutral-100 text-sm font-medium px-6 py-[6px] rounded-full transition-all duration-500 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed block "
+                    >
+                        CREATE COIN
+                    </button>
                 </div>
             </div>
+            <Card className="border-none ">
+                <CardContent className="px-2 relative">
+                    <div className="overflow-hidden rounded-xl border-1 z-10 border-solid border-y-theme-primary-300 border-x-theme-secondary-400">
+                        <Table>
+                            <TableHeader className="border-b-1 border-b-solid border-b-theme-secondary-300/30">
+                                <TableRow className="h-[38px] bg-neutral-100/50 dark:bg-neutral-800/50">
+                                    <TableHead
+                                        className={`text-neutral-600 dark:text-neutral-300 font-normal text-xs text-center cursor-pointer hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50 transition-colors`}
+                                        onClick={() => handleSort("time")}
+                                    >
+                                        <div className="flex items-center justify-start gap-1 pl-4">
+                                            Time
+                                            {renderSortIcon("time")}
+                                        </div>
+                                    </TableHead>
+                                    <TableHead
+                                        className={`text-neutral-600 dark:text-neutral-300 font-normal text-xs text-center cursor-pointer hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50 transition-colors`}
+                                        onClick={() => handleSort("name")}
+                                    >
+                                        <div className="flex items-center justify-start gap-1">
+                                            Meme coin
+                                            {renderSortIcon("name")}
+                                        </div>
+                                    </TableHead>
+                                    <TableHead
+                                        className={`text-neutral-600 dark:text-neutral-300 font-normal text-xs text-center cursor-pointer hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50 transition-colors`}
+                                        onClick={() => handleSort("symbol")}
+                                    >
+                                        <div className="flex items-center justify-start gap-1">
+                                            Symbol
+                                            {renderSortIcon("symbol")}
+                                        </div>
+                                    </TableHead>
+                                    <TableHead className="text-neutral-600 dark:text-neutral-300 font-normal text-xs text-center">Address</TableHead>
+                                    <TableHead
+                                        className={`text-neutral-600 dark:text-neutral-300 font-normal text-xs text-center cursor-pointer hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50 transition-colors`}
+                                        onClick={() => handleSort("decimals")}
+                                    >
+                                        <div className="flex items-center justify-start gap-1">
+                                            Decimals
+                                            {renderSortIcon("decimals")}
+                                        </div>
+                                    </TableHead>
+                                    <TableHead className="text-neutral-600 dark:text-neutral-300 font-normal text-xs text-center">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {sortedAndFilteredCoins.map((coin) => (
+                                    <TableRow
+                                        key={coin.id}
+                                        className="hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50 ease-linear transition-all duration-300"
+                                    >
+                                        <TableCell className="text-neutral-700 dark:text-neutral-200 text-xs font-normal text-center">
+                                            <div className="flex flex-col items-start pl-4">
+                                                <div>{coin.time}</div>
+                                                <div className="text-neutral-500 dark:text-neutral-400 text-xs">{coin.date}</div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="h-[48px]">
+                                            <div className="flex items-center justify-start gap-3">
+                                                <div className="w-8 h-8 rounded-full overflow-hidden bg-neutral-200 dark:bg-neutral-700 flex-shrink-0">
+                                                    <Image
+                                                        src={token}
+                                                        alt={coin.name}
+                                                        width={32}
+                                                        height={32}
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                                <span className="text-neutral-700 dark:text-neutral-200 text-xs font-normal">{coin.name}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-neutral-700 dark:text-neutral-200 text-xs font-normal text-center">{coin.symbol}</TableCell>
+                                        <TableCell className="h-[48px]">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <span className="text-neutral-700 dark:text-neutral-200 text-xs font-normal">{coin.address}</span>
+                                                <button
+                                                    onClick={(e) => copyToClipboard(coin.address, e)}
+                                                    className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors p-1"
+                                                >
+                                                    <Copy className="h-4 w-4" />
+                                                </button>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-neutral-700 dark:text-neutral-200 text-xs font-normal text-center">{coin.decimals}</TableCell>
+                                        <TableCell className="text-center">
+                                            <button className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors">
+                                                <Image src={convertIcon} alt="convert" width={21} height={20} />
+                                            </button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     )
 }

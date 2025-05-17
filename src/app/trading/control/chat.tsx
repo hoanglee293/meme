@@ -113,10 +113,10 @@ const ChatTrading = () => {
     setNewMessage(prev => prev + icon)
     setShowIconPicker(false)
   }
-
+  
   return (
     <div className="flex flex-col h-full bg-gray-50 dark:bg-theme-neutral-1000">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className={`${window.innerHeight > 700 ? 'flex-1' : 'h-[300px]'} overflow-y-auto p-2 space-y-4`}>
         {messages.map((message) => (
           <div key={message.id} className={`flex ${message.sender.isCurrentUser ? "justify-end" : "items-start"}`}>
             {!message.sender.isCurrentUser && (
@@ -124,28 +124,25 @@ const ChatTrading = () => {
                 <Image
                   src={message.sender.avatar || token}
                   alt={message.sender.name}
-                  width={40}
-                  height={40}
+                  width={36}
+                  height={36}
                   className="rounded-full ring-2 ring-theme-primary-400/20 dark:ring-theme-primary-400/30"
                 />
               </div>
             )}
             <div>
               {!message.sender.isCurrentUser && (
-                <div className="font-medium text-sm mb-1 text-theme-primary-500 dark:text-theme-primary-300">
+                <div className="font-medium text-xs mb-1 text-theme-primary-500 dark:text-theme-primary-300">
                   {message.sender.name}
                 </div>
               )}
               <div
-                className={`max-w-[80%] rounded-lg p-3 ${message.sender.isCurrentUser
+                className={`max-w-[90%] rounded-lg p-2 ${message.sender.isCurrentUser
                     ? "bg-theme-primary-400 text-white shadow-sm dark:bg-theme-primary-400/90"
                     : "bg-white dark:bg-neutral-800 text-gray-800 dark:text-white border border-gray-200 dark:border-theme-primary-400/30 shadow-sm"
                   }`}
               >
                 <p className="text-xs text-gray-800 dark:text-white">{message.text}</p>
-                <div className="text-xs mt-1 text-gray-500 dark:text-gray-400">
-                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </div>
               </div>
             </div>
 
@@ -155,7 +152,7 @@ const ChatTrading = () => {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-100 dark:border-neutral-800 bg-white dark:bg-theme-neutral-1000 shadow-sm">
+      <div className="p-1 border-t border-gray-100 dark:border-neutral-800 bg-white dark:bg-theme-neutral-1000 shadow-sm">
         <div className="relative">
           {/* Emoji Picker */}
           {showEmojiPicker && (
@@ -182,8 +179,8 @@ const ChatTrading = () => {
                 className="w-full bg-gray-50 dark:bg-neutral-800 text-gray-900 dark:text-white rounded-full px-4 py-2 pr-10 
                                          focus:outline-none focus:ring-2 focus:ring-theme-primary-400/50 
                                          placeholder-gray-400 dark:placeholder-gray-500
-                                         border border-gray-200 dark:border-neutral-700
-                                         shadow-sm hover:border-theme-primary-400/30 transition-colors"
+                                         border border-gray-200 dark:border-neutral-700 h-[30px]
+                                         shadow-sm hover:border-theme-primary-400/30 transition-colors placeholder:text-xs"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                 <button
@@ -194,19 +191,19 @@ const ChatTrading = () => {
                   className="text-gray-400 hover:text-theme-primary-500 dark:text-gray-400 
                                              dark:hover:text-theme-primary-300 transition-colors"
                 >
-                  <Smile className="h-5 w-5" />
+                  <Smile className="h-4 w-4" />
                 </button>
               </div>
             </div>
             <button
               onClick={handleSendMessage}
               disabled={!newMessage.trim()}
-              className={`rounded-full p-2 transition-colors
+              className={`rounded-full p-1 transition-colors
                                      ${newMessage.trim()
                   ? 'bg-theme-primary-400 hover:bg-theme-primary-500 text-white shadow-sm'
                   : 'bg-gray-100 dark:bg-neutral-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'}`}
             >
-              <Send className="h-5 w-5" />
+              <Send className="h-4 w-4" />
             </button>
           </div>
         </div>

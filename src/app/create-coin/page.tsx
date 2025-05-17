@@ -479,7 +479,7 @@ export default function CreateCoinForm() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full max-w-[400px] create-coin-bg hover:linear-200-bg hover-bg-delay text-black dark:text-neutral-100 font-medium px-6 py-[6px] rounded-full transition-all duration-500 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed mx-auto block"
+                                className="w-full max-w-[400px] create-coin-bg hover:linear-200-bg hover-bg-delay dark:text-neutral-100 font-medium px-6 py-[6px] rounded-full transition-all duration-500 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed mx-auto block"
                             >
                                 {isSubmitting ? "CREATING..." : "CREATE COIN"}
                             </button>
@@ -499,7 +499,7 @@ export default function CreateCoinForm() {
                             {ethereumIcon(20, 20)}
                         </h2>
 
-                        <div className="flex justify-between mb-6">
+                        <div className="flex justify-evenly mb-6">
                             <button onClick={() => setActiveTab("today")} className={`text-sm ${activeTab === "today" ? "text-theme-gradient-linear-start" : "text-gray-400"}`}>Today</button>
                             <button onClick={() => setActiveTab("last8days")} className={`text-gray-400 text-sm hover:text-gray-300 ${activeTab === "last8days" ? "text-theme-gradient-linear-start" : "text-gray-400"}`}>Last 8 days</button>
                             <button onClick={() => setActiveTab("lastmonth")} className={`text-gray-400 text-sm hover:text-gray-300 ${activeTab === "lastmonth" ? "text-theme-gradient-linear-start" : "text-gray-400"}`}>Last month</button>

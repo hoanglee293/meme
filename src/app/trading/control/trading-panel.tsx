@@ -243,7 +243,7 @@ export default function TradingPanel({ defaultMode = "buy", currency, isConnecte
             </div>
 
             {/* USD Value and Balance */}
-            <div className="flex justify-between text-sm mb-4">
+            <div className="flex justify-between text-sm mb-3">
                 <div className={styleTextBase}>~ ${amountUSD}</div>
                 <div className={styleTextBase}>
                     Balance: {currency.balance.toFixed(6)} {currency.symbol}
