@@ -71,6 +71,7 @@ export default function CreateCoinForm() {
     const [errors, setErrors] = useState<FormErrors>({})
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
+    const [showOtherOption, setShowOtherOption] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
     const [activeTab, setActiveTab] = useState("today")
 
@@ -234,11 +235,11 @@ export default function CreateCoinForm() {
         return <Image src={ethereum} alt="ethereum-icon" width={width} height={height} />
     }
     return (
-        <div className="container-body px-[40px] flex gap-6 py-[30px] relative mx-auto z-10">
+        <div className="container-body h-[92vh] px-[40px] flex gap-6 py-[30px] relative mx-auto z-10">
             {/* Main Form */}
-            <div className="border-create-coin w-2/3 bg-transparent bg-opacity-30 rounded-xl p-[30px] shadow-lg mt-[20px] flex flex-col">
+            <div className="border-create-coin w-2/3 bg-transparent flex-1 bg-opacity-30 rounded-xl p-[30px] shadow-lg flex flex-col ">
                 <div className="w-full h-full flex flex-col">
-                    <h2 className="text-center text-2xl font-bold text-neutral-100 mb-8 flex items-center justify-center gap-2">
+                    <h2 className="text-center text-2xl font-bold text-neutral-100 mb-6 flex items-center justify-center gap-2">
                         {ethereumIcon(20, 20)}
                         CREATE NEW COIN
                         {ethereumIcon(20, 20)}
@@ -349,59 +350,9 @@ export default function CreateCoinForm() {
                                     cols={5}
                                     className={classInput}
                                 />
-                                {errors.description && <p className="mt-1 text-xs text-red-500">{errors.description}</p>}
+                                {errors.description && <p className="mt-1 text-xs text-theme-red-100">{errors.description}</p>}
                             </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Telegram */}
-                                <div>
-                                    <label htmlFor="telegram" className={classLabel}>
-                                        Telegram
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="telegram"
-                                        name="telegram"
-                                        value={formData.telegram}
-                                        onChange={handleInputChange}
-                                        placeholder="Enter telegram group link"
-                                        className={classInput}
-                                    />
-                                </div>
-
-                                {/* Twitter */}
-                                <div>
-                                    <label htmlFor="twitter" className={classLabel}>
-                                        Twitter
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="twitter"
-                                        name="twitter"
-                                        value={formData.twitter}
-                                        onChange={handleInputChange}
-                                        placeholder="Enter twitter username"
-                                        className={classInput}
-                                    />
-                                </div>
-
-                                {/* Website */}
-                                <div>
-                                    <label htmlFor="website" className={classLabel}>
-                                        Website
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="website"
-                                        name="website"
-                                        value={formData.website}
-                                        onChange={handleInputChange}
-                                        placeholder="Enter coin website"
-                                        className={classInput}
-                                    />
-                                    {errors.website && <p className="mt-1 text-xs text-red-500">{errors.website}</p>}
-                                </div>
-                            </div>
+                           
                             <div className="flex gap-4 w-full">
                                 <div className="w-1/2">
                                     <label className={classLabel}>
@@ -472,6 +423,59 @@ export default function CreateCoinForm() {
                                     </div>
                                 </div>
                             </div>
+                            <div style={{marginBottom: '-10px'}} className={`mt-6 cursor-pointer hover:text-theme-primary-300 ${showOtherOption && 'text-theme-primary-300'}`} onClick={() => setShowOtherOption(!showOtherOption)}>Other Option</div>
+                            {showOtherOption && (  
+                                 <div className="flex justify-between gap-6">
+                                 {/* Telegram */}
+                                 <div className="flex-1">
+                                     <label htmlFor="telegram" className={classLabel}>
+                                         Telegram
+                                     </label>
+                                     <input
+                                         type="text"
+                                         id="telegram"
+                                         name="telegram"
+                                         value={formData.telegram}
+                                         onChange={handleInputChange}
+                                         placeholder="Enter telegram group link"
+                                         className={classInput}
+                                     />
+                                 </div>
+ 
+                                 {/* Twitter */}
+                                 <div className="flex-1">
+                                     <label htmlFor="twitter" className={classLabel}>
+                                         Twitter
+                                     </label>
+                                     <input
+                                         type="text"
+                                         id="twitter"
+                                         name="twitter"
+                                         value={formData.twitter}
+                                         onChange={handleInputChange}
+                                         placeholder="Enter twitter username"
+                                         className={classInput}
+                                     />
+                                 </div>
+ 
+                                 {/* Website */}
+                                 <div className="flex-1">
+                                     <label htmlFor="website" className={classLabel}>
+                                         Website
+                                     </label>
+                                     <input
+                                         type="text"
+                                         id="website"
+                                         name="website"
+                                         value={formData.website}
+                                         onChange={handleInputChange}
+                                         placeholder="Enter coin website"
+                                         className={classInput}
+                                     />
+                                     {errors.website && <p className="mt-1 text-xs text-red-500">{errors.website}</p>}
+                                 </div>
+                             </div>
+                            )}
                         </div>
 
                         {/* Submit Button - Fixed at bottom */}
@@ -489,7 +493,7 @@ export default function CreateCoinForm() {
             </div>
 
             {/* Sidebar */}
-            <div className="w-1/3 space-y-6 mt-[20px] flex flex-col gap-2">
+            <div className="w-1/3 space-y-6 flex flex-col gap-2">
                 {/* My Coins */}
                 <div className="rounded-xl border p-8 shadow-lg border-my-coin flex-1 flex flex-col justify-between">
                     <div>
